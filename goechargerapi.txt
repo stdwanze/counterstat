@@ -1,0 +1,23 @@
+
+read
+Sa 5. Feb 2022, 13:25
+go-e charger v3 hardware erlaubt neben AMPs auch 1p/3p Umschaltung. Wenn in der App "Ausstecken simulieren" aktiviert ist, passiert das automatisch. In der App muss unter "Internet" -> "Erweiterte Einstellungen" die "Lokale HTTP API v2" aktiv sein:
+
+#adjust amps
+curl "http://1.2.3.4/api/set?amp=16"
+
+#set 1-phase
+curl "http://1.2.3.4/api/set?psm=1"
+
+#set 3-phase
+curl "http://1.2.3.4/api/set?psm=2"
+
+#start charging
+curl "http://1.2.3.4/api/set?frc=0"
+
+#stop charging
+curl "http://1.2.3.4/api/set?frc=1"
+
+# Get settings (all or some, see https://github.com/goecharger/go-eCharg ... keys-de.md ):
+curl "http://1.2.3.4/api/status"
+curl "http://1.2.3.4/api/status?filter=amp,psm"
