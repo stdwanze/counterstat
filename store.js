@@ -18,7 +18,7 @@ function init(storename){
 }
 
 function getRecords(){
-    return current.dailyrecord;
+    return current;
 }
 
 function addRecord(totalconsumed, totaldelivered, date){
