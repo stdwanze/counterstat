@@ -21,3 +21,10 @@ curl "http://1.2.3.4/api/set?frc=1"
 # Get settings (all or some, see https://github.com/goecharger/go-eCharg ... keys-de.md ):
 curl "http://1.2.3.4/api/status"
 curl "http://1.2.3.4/api/status?filter=amp,psm"
+
+
+{
+"amp": 12, // amps
+"car": 4,  // 2 = charging
+"psm": 1 // 1 - single, 2 - 3 phase
+}

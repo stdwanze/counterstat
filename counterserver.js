@@ -1,6 +1,7 @@
 const polka = require('polka');
 const { json } = require('body-parser');
 var store = require('./store');
+var io = require('./io');
 var config = require('./config').config();
 
 polka()
@@ -9,6 +10,16 @@ polka()
         store.init(config.storeFileName);
         res.end(JSON.stringify(store.getRecords()));
     })
+    .get('/activate', (req,res)=> {
+        io.write({},config.activator);
+        res.end("activated");
+    })
+    .get('/deactivate', (req,res)=> {
+        io.deleteFile(config.activator);
+        res.end("deactivated");
+    })
+    
+
     
     .listen(5000, err => {
         if (err) throw err;

@@ -8,7 +8,10 @@ function write(content, filename){
     }
 
 }
+function deleteFile(filename ){
+    fs.unlinkSync(filename);
 
+}
 function read(filename){
 
     try {
@@ -20,10 +23,22 @@ function read(filename){
         return {}
     }
 }
+function exists(filename){
+    try {
+        if (fs.existsSync(filename)) {
+         return true;
+        }
+      } catch(err) {
+        console.error(err)
+      }
+      return false;
+}
 
 module.exports = {
 
     write,
-    read
+    read,
+    exists,
+    deleteFile
 
 }
