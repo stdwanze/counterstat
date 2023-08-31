@@ -1,0 +1,1 @@
+{"totalconsumed":980,"totaldelivered":2606,"dailyrecord":[{"date":"2023-08-31T13:14:23","consumed":980,"delivered":2606},{"date":"2023-08-31T13:14:32","consumed":0,"delivered":0}]}

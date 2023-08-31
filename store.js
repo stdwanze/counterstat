@@ -28,13 +28,15 @@ function addRecord(totalconsumed, totaldelivered, date){
         consumed : totalconsumed - current.totalconsumed,
         delivered : totaldelivered - current.totaldelivered
     }
+    current.totalconsumed = totalconsumed;
+    current.totaldelivered = totaldelivered;
     current.dailyrecord.push(record);
 
 }
 
 
 function save(){
-    io.save(current, filename);
+    io.write(current, filename);
 }
 
 

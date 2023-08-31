@@ -1,11 +1,12 @@
 
 
-var request = require('axios');
+var axios = require('axios');
 var store = require('./store');
 var counterurl;
 function initRunner(url,storeFileName){
     counterurl = url;
     store.init(storeFileName);
+
 }
 
 function run(){
@@ -16,12 +17,17 @@ function run(){
         
       }).then((response)=>{
         if(response.status == 200){
-            let datar = JSON.parse(response.data);
-            store.addRecord(datar.StatusSNS.E320.total_in,datar.StatusSNS.E320.total_out, datar.StatusSNS.Time);
+            let datar = response.data;
+            store.addRecord(datar.StatusSNS.E320.Total_in,datar.StatusSNS.E320.Total_out, datar.StatusSNS.Time);
             store.save();
 
         }
         
       })
 
+}
+
+module.exports ={
+  initRunner,
+  run
 }
