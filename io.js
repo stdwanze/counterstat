@@ -34,11 +34,24 @@ function exists(filename){
       return false;
 }
 
+function appendPlain(content, filename){
+
+    try {
+        if (fs.appendFileSync(filename,content)) {
+         return true;
+        }
+      } catch(err) {
+        console.error(err)
+      }
+      return false;
+}
+
 module.exports = {
 
     write,
     read,
     exists,
-    deleteFile
+    deleteFile,
+    appendPlain
 
 }

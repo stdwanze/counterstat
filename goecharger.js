@@ -40,9 +40,9 @@ async function setPower(pInWatts){
 
     let phases = 1;
     let amps = 10;
-    let charge = 1;
+    let charge = 0;
     if(pInWatts < 2300){
-        charge = 0;
+        charge = 1;
     }
     if(pInWatts > 2300){
         phases = 1;
@@ -61,7 +61,7 @@ async function setPower(pInWatts){
         amps = 6;
     }
     
-    await set("frc",charge)
+    await set("frc",charge);
     await set("psm",phases);
     await set("amp",amps);
     
