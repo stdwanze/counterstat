@@ -61,6 +61,7 @@ module.exports = {
 
     write,
     read,
+    readPlain,
     exists,
     deleteFile,
     appendPlain
