@@ -5,7 +5,7 @@ function config(){
         storeFileName: "store.txt",
         goeChargerUrl: "http://192.168.1.222",
         lastset: "lastset.txt",
-        activator: "acvitvator",
+        activator: "activator",
         minuteReportFile: "minutereport.csv"
     }
 }
