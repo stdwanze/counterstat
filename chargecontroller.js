@@ -30,7 +30,7 @@ async function run(){
         url: counterurl,
     });
     let chargerWattage = await charger.getChargerConsumptionInWatts();
-  
+    let overflow = counter.data.StatusSNS.E320.Power_in - chargerWattage;
     if(overflow < 0 ) 
     {       overflow = Math.abs(overflow);
             charger.setPower(overflow);
