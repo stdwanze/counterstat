@@ -22,6 +22,10 @@ polka()
         var content = io.readPlain(config.minuteReportFile);
         res.end(content);
     })
+    .get('/chargecontrol', (req,res)=>{
+        var content = io.readPlain(config.lastset);
+        res.end(content);
+    })
     
 
     
