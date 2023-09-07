@@ -15,9 +15,20 @@ function deleteFile(filename ){
 function read(filename){
 
     try {
-        var content = fs.readFileSync(filename);
+        var content = readPlain(filename);
         var jsobj = JSON.parse(content);
         return jsobj;
+    } catch (error) {
+        console.error(error);
+        return {}
+    }
+}
+function readPlain(filename){
+
+    try {
+        var content = fs.readFileSync(filename);
+     
+        return content;
     } catch (error) {
         console.error(error);
         return {}

@@ -18,6 +18,10 @@ polka()
         io.deleteFile(config.activator);
         res.end("deactivated");
     })
+    .get('/minutereport', (req,res)=>{
+        var content = io.readPlain(config.minuteReportFile);
+        res,end(content);
+    })
     
 
     
