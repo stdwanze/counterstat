@@ -30,15 +30,15 @@ async function run(){
         url: counterurl,
     });
     let chargerWattage = await charger.getChargerConsumptionInWatts();
-    let overflow = Math.abs(counter.data.StatusSNS.E320.Power_in - chargerWattage);
-
+  
     if(overflow < 0 ) 
-    {
+    {       overflow = Math.abs(overflow);
             charger.setPower(overflow);
-            store.write({ overflow: overflow , date: new Date(), charger: chargerWattage},config.lastset);
+            store.write({export: true, overflow: overflow , date: new Date(), charger: chargerWattage},config.lastset);
     }
     else {
-        store.write({ overflow: 0 , date: new Date(), charger: chargerWattage},config.lastset);
+        charger.setPower(-1);
+        store.write({ export: false,overflow: overflow , date: new Date(), charger: chargerWattage},config.lastset);
     }
 
 }
