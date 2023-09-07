@@ -33,12 +33,12 @@ async function run(){
     let overflow = counter.data.StatusSNS.E320.Power_in - chargerWattage;
     if(overflow < 0 ) 
     {       overflow = Math.abs(overflow);
-            charger.setPower(overflow);
-            store.write({export: true, overflow: overflow , date: new Date(), charger: chargerWattage},config.lastset);
+            let result = charger.setPower(overflow);
+            store.write({export: true, overflow: overflow , date: new Date(), charger: chargerWattage, result: result},config.lastset);
     }
     else {
-        charger.setPower(-1);
-        store.write({ export: false,overflow: overflow , date: new Date(), charger: chargerWattage},config.lastset);
+        let result = charger.setPower(-1);
+        store.write({ export: false,overflow: overflow , date: new Date(), charger: chargerWattage,result: result} ,config.lastset);
     }
 
 }
