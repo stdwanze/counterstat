@@ -20,7 +20,7 @@ polka()
     })
     .get('/minutereport', (req,res)=>{
         var content = io.readPlain(config.minuteReportFile);
-        res,end(content);
+        res.end(content);
     })
     
 
