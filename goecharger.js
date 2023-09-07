@@ -65,7 +65,7 @@ async function setPower(pInWatts){
     await set("psm",phases);
     await set("amp",amps);
     
-    return "amp:"+amps+",psm:"+psm+",chargeStoped:"+charge;
+    return "amp:"+amps+",psm:"+phases+",chargeStoped:"+charge;
        
 }
 
