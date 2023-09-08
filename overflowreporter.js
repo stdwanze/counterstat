@@ -6,7 +6,7 @@ var config = require('./config').config();
 function isNotAllowedToRun(){
 
     let currentTime = new Date();
-    if(currentTime.getHours() < 7 || currentTime.getHours() > 18) return true;
+    if(currentTime.getHours() < 6 || currentTime.getHours() > 19) return true;
    
 
     return false;
