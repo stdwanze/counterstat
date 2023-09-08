@@ -1,11 +1,15 @@
 const polka = require('polka');
+const { join } = require('path');
 const { json } = require('body-parser');
 var store = require('./store');
 var io = require('./io');
 var config = require('./config').config();
+const dir = join(__dirname, 'public');
+const serve = require('serve-static')(dir);
 
 polka()
     .use(json())
+    .use(serve)
     .get('/stats', (req,res) =>{
         store.init(config.storeFileName);
         res.end(JSON.stringify(store.getRecords()));
@@ -31,5 +35,5 @@ polka()
     
     .listen(5000, err => {
         if (err) throw err;
-        console.log(`> Running on localhost:3000`);
+        console.log(`> Running on localhost:5000`);
       });
