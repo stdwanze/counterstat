@@ -76,7 +76,7 @@ async function setPower(pInWatts, considerPostponedStop){
     await set("psm",phases);
     await set("amp",amps);
     
-    return { chargersetting: "amp:"+amps+",psm:"+phases+",chargeStoped:"+charge, commandStop: postpone};
+    return { chargersetting: "amp:"+amps+",psm:"+phases+",chargeStoped:"+charge, commandStop: postpone, woffset: woffset};
        
 }
 
