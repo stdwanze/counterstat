@@ -9,7 +9,12 @@ function write(content, filename){
 
 }
 function deleteFile(filename ){
-    fs.unlinkSync(filename);
+    try {
+        fs.unlinkSync(filename);
+    } catch (error) {
+        console.error(error);
+    }
+  
 
 }
 function read(filename){

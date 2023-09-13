@@ -3,12 +3,16 @@ var axios = require('axios');
 
 var baseurl = "";
 var state = null;
-
+var woffset = 0;
 
 
 function init(baseUrl){
 
     baseurl= baseUrl;
+}
+
+function setOffset(W_Offset){
+    woffset = W_Offset;
 }
 
 async function set(what,val){
@@ -36,27 +40,34 @@ async function getChargerConsumptionInWatts(){
     return state.car == 2 ? state.tpa : 0;
 }
 
-async function setPower(pInWatts){
+async function setPower(pInWatts, considerPostponedStop){
+
+    let _base = 2300 - woffset;
 
     let phases = 1;
     let amps = 10;
     let charge = 0;
-    if(pInWatts < 2300){
-        charge = 1;
+    let postpone = false;
+    if(pInWatts < _base){
+
+        if(considerPostponedStop){
+            postpone = true;
+        }
+        else charge = 1;
     }
-    if(pInWatts > 2300){
+    if(pInWatts > _base+50){
         phases = 1;
         amps = 10;
     } 
-    if(pInWatts > 2800){
+    if(pInWatts > _base+300){
         phases = 1;
         amps = 12;
     } 
-    if(pInWatts > 3200){
+    if(pInWatts > _base+900){
         phases = 1;
         amps = 14;
     }
-    if(pInWatts > 4300){
+    if(pInWatts > _base+2000){
         phases = 2;
         amps = 6;
     }
@@ -65,12 +76,13 @@ async function setPower(pInWatts){
     await set("psm",phases);
     await set("amp",amps);
     
-    return "amp:"+amps+",psm:"+phases+",chargeStoped:"+charge;
+    return { chargersetting: "amp:"+amps+",psm:"+phases+",chargeStoped:"+charge, commandStop: postpone};
        
 }
 
 module.exports = {
     init,
     getChargerConsumptionInWatts,
-    setPower
+    setPower,
+    setOffset
 }

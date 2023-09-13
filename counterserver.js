@@ -14,8 +14,8 @@ polka()
         store.init(config.storeFileName);
         res.end(JSON.stringify(store.getRecords()));
     })
-    .get('/activate', (req,res)=> {
-        io.write({},config.activator);
+    .get('/activate/:limit', (req,res)=> {
+        io.write({ offset: req.params.limit},config.activator);
         res.end("activated");
     })
     .get('/deactivate', (req,res)=> {
