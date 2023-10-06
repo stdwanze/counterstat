@@ -1,6 +1,7 @@
 const polka = require('polka');
 const { join } = require('path');
 const { json } = require('body-parser');
+const { getPower } = require('./sungrow');
 var store = require('./store');
 var io = require('./io');
 var config = require('./config').config();
@@ -29,6 +30,10 @@ polka()
     .get('/chargecontrol', (req,res)=>{
         var content = io.readPlain(config.lastset);
         res.end(content);
+    })
+    .get('/currSolar', async  (req,res)=>{
+        let r =  await getPower();
+        res.end(JSON.stringify(r));
     })
     
 

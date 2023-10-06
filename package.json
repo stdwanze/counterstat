@@ -12,6 +12,8 @@
     "axios": "^1.5.0",
     "body-parser": "^1.20.2",
     "polka": "^0.5.2",
-    "serve-static": "^1.15.0"
+    "serve-static": "^1.15.0",
+    "websocket": "^1.0.34",
+    "ws": "^8.14.2"
   }
 }
