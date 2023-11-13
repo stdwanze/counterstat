@@ -6,7 +6,8 @@ function config(){
         goeChargerUrl: "http://192.168.1.222",
         lastset: "lastset.txt",
         activator: "activator",
-        minuteReportFile: "minutereport.csv"
+        minuteReportFile: "minutereport.csv",
+        dtuurl: "http://192.168.1.105/"
     }
 }
 
