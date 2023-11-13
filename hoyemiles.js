@@ -18,8 +18,10 @@ async function getPowerDTU(){
         url: 'api/livedata/status',
         baseURL: baseurl
     });
-    state = res.data.total;
-
+    if(res.data != null && res.data.total != null){
+        state = res.data.total;
+    }
+    else state = { Power: { v: 0}};
     return state;
 }
 
