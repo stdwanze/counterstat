@@ -45,7 +45,7 @@ async function setPower(pInWatts, considerPostponedStop){
     let _base = 2300 - woffset;
 
     let phases = 1;
-    let amps = 10;
+    let amps =6;
     let charge = 0;
     let postpone = false;
     if(pInWatts < _base){
@@ -55,6 +55,10 @@ async function setPower(pInWatts, considerPostponedStop){
         }
         else charge = 1;
     }
+    if(pInWatts > 1400){ // offset not deducted below
+        phases = 1;
+        amps = 6;
+    } 
     if(pInWatts > _base+50){
         phases = 1;
         amps = 10;
