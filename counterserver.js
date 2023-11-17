@@ -22,13 +22,10 @@ polka()
         io.write({ offset: req.params.limit},config.activator);
         res.end("activated");
     })
-    .get('/deactivate/:mode', (req,res)=> {
+    .get('/deactivate', (req,res)=> {
         io.deleteFile(config.activator);
 
-        if(req.params.mode != null){
-
-        }
-
+       
         res.end("deactivated");
     })
     .get('/minutereport', (req,res)=>{
