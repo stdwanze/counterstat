@@ -43,19 +43,19 @@ async function getChargerConsumptionInWatts(){
 async function setPower(pInWatts, considerPostponedStop){
 
     let _base = 2300 - woffset;
-
+    let minChargelevel = 1400;
     let phases = 1;
     let amps =6;
     let charge = 0;
     let postpone = false;
-    if(pInWatts < _base){
+    if(pInWatts < minChargelevel){
 
         if(considerPostponedStop){
             postpone = true;
         }
         else charge = 1;
     }
-    if(pInWatts > 1400){ // offset not deducted below
+    if(pInWatts > minChargelevel){ // offset not deducted below
         phases = 1;
         amps = 6;
     } 
