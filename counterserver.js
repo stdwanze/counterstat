@@ -38,7 +38,8 @@ polka()
     })
     .get('/currSolar', async  (req,res)=>{
         let r =  await getPower();
-        let h = await dtu.getPowerDTU();
+        let h = {}; h.Power = {}; h.Power.v = -1;
+        try { h = await dtu.getPowerDTU();} catch(e){ }
         let strings = {
             StringNorth : r.MPPT2,
             StringSouth: r.MPPT1,
