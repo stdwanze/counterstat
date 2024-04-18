@@ -44,7 +44,7 @@ async function getChargerConsumptionInWatts(){
     return state.car == 2 ? state.tpa : 0;
 }
 
-async function setPower(pInWatts, considerPostponedStop){
+async function setPower(pInWatts, considerPostponedStop ){
 
     let _base = 2300 - woffset;
     let minChargelevel = 1400;
@@ -84,7 +84,7 @@ async function setPower(pInWatts, considerPostponedStop){
     await set("psm",phases);
     await set("amp",amps);
     
-    return { chargersetting: "amp:"+amps+",psm:"+phases+",chargeStoped:"+charge, commandStop: postpone, woffset: woffset};
+    return { chargersetting: "amp:"+amps+",psm:"+phases+",chargeStoped:"+charge, commandStop: postpone, woffset: woffset, threePhase: phases==2? true: false};
        
 }
 
