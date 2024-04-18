@@ -4,7 +4,7 @@ var axios = require('axios');
 var baseurl = "";
 var state = null;
 var woffset = 0;
-
+var threePhaseAllowed = false;
 
 function init(baseUrl){
 
@@ -13,6 +13,10 @@ function init(baseUrl){
 
 function setOffset(W_Offset){
     woffset = W_Offset;
+}
+function setThreePhaseAllowed( allowed)
+{
+    threePhaseAllowed = allowed;
 }
 
 async function set(what,val){
@@ -71,7 +75,7 @@ async function setPower(pInWatts, considerPostponedStop){
         phases = 1;
         amps = 14;
     }
-    if(pInWatts > _base+2000){
+    if(pInWatts > _base+2000 && threePhaseAllowed){
         phases = 2;
         amps = 6;
     }
@@ -88,5 +92,6 @@ module.exports = {
     init,
     getChargerConsumptionInWatts,
     setPower,
-    setOffset
+    setOffset,
+    setThreePhaseAllowed
 }

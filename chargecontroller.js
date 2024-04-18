@@ -19,7 +19,8 @@ function isNotAllowedToRun(){
     } 
     let offset = store.read(config.activator);
     offset = parseInt(offset.offset);
-    if(!isNaN(offset) ) charger.setOffset(offset);
+    if(!isNaN(offset) && offset != -1 ) charger.setOffset(offset);
+    if(!isNaN(offset) && offset == -1) charger.setThreePhaseAllowed(true);
     return false;
 }
 
