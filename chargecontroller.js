@@ -29,8 +29,10 @@ function isNotAllowedToRun(){
 
 function cooldown(){
     let cd = store.read(config.cooldown);
-    if(cd.periodsLeft > 1)
-    cd.periodsLeft -= 1;
+    if(cd.periodsLeft > 1){
+        cd.periodsLeft -= 1;
+        console.log("periods down to "+ cd.periodsLeft);
+    } 
     store.write(cd,config.cooldown);
 }
 function is3PhaseActivatable(chargerWattage){
@@ -45,6 +47,7 @@ function setCooldown(){
     let cd = store.read(config.cooldown);
     cd.periodsLeft = 10;
     store.write(cd,config.cooldown);
+    console.log("cool down set to 10");
 }
 
 function shouldStop(){
@@ -73,13 +76,13 @@ async function run(){
     let stopCommandLastTime = shouldStop();
     let wasCharging = chargerWattage > 0 ;
     charger.setThreePhaseAllowed(is3PhaseActivatable(chargerWattage));
-
+    console.log("3p possible? : " +is3PhaseActivatable(chargerWattage));
     if(overflow < 0 ) 
     {       overflow = Math.abs(overflow);
             let result = await charger.setPower(overflow,stopCommandLastTime ? false : wasCharging  );
             store.write({export: true, overflow: overflow , date: new Date(), charger: chargerWattage, result: result},config.lastset);
-
-    }
+          
+    }   
     else {
         let result = null;
         if(stopCommandLastTime){
@@ -91,6 +94,7 @@ async function run(){
        
         store.write({ export: false,overflow: overflow , date: new Date(), charger: chargerWattage,result: result} ,config.lastset);
     }
+    console.log("charger set "+result);
     if(chargerWattage > 4200 && result.threePhase == false) setCooldown();
 
 }
