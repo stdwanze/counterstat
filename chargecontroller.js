@@ -70,7 +70,7 @@ async function run(){
         method: 'get',
         url: counterurl,
     });
-    
+    let result = null;
     let chargerWattage = await charger.getChargerConsumptionInWatts();
     let overflow = counter.data.StatusSNS.E320.Power_in - chargerWattage;
     let stopCommandLastTime = shouldStop();
@@ -79,12 +79,12 @@ async function run(){
     console.log("3p possible? : " +is3PhaseActivatable(chargerWattage));
     if(overflow < 0 ) 
     {       overflow = Math.abs(overflow);
-            let result = await charger.setPower(overflow,stopCommandLastTime ? false : wasCharging  );
+            result = await charger.setPower(overflow,stopCommandLastTime ? false : wasCharging  );
             store.write({export: true, overflow: overflow , date: new Date(), charger: chargerWattage, result: result},config.lastset);
           
     }   
     else {
-        let result = null;
+        
         if(stopCommandLastTime){
             result = await charger.setPower(-1,false);
         }
