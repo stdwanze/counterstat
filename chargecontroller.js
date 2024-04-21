@@ -94,7 +94,7 @@ async function run(){
        
         store.write({ export: false,overflow: overflow , date: new Date(), charger: chargerWattage,result: result} ,config.lastset);
     }
-    console.log("charger set "+result);
+    console.log("charger set "+ JSON.stringify(result));
     if(chargerWattage > 4200 && result.threePhase == false) setCooldown();
 
 }
