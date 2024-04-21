@@ -29,7 +29,7 @@ function isNotAllowedToRun(){
 
 function cooldown(){
     let cd = store.read(config.cooldown);
-    if(cd.periodsLeft > 1){
+    if(cd.periodsLeft > 0){
         cd.periodsLeft -= 1;
         console.log("periods down to "+ cd.periodsLeft);
     } 
