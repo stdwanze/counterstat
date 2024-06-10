@@ -15,7 +15,7 @@ if(!store.exists(config.cooldown)) store.write({ periodsLeft: 0 },config.cooldow
 function isNotAllowedToRun(){
 
     let currentTime = new Date();
-    if(currentTime.getHours() < 7 || currentTime.getHours() > 17) return true;
+    if(currentTime.getHours() < 6 || currentTime.getHours() > 18) return true;
     if(!store.exists(config.activator)){
         return true;
     } 
