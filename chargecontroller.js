@@ -60,9 +60,10 @@ function shouldStop(){
 
 async function run(){
 
+    let allowed = true;
     if(isNotAllowedToRun()) {
-        store.write({ state: "did not run because not allowed"},config.lastset);
-        return;
+        allowed=false;
+        
     }
     cooldown();
 
@@ -73,6 +74,15 @@ async function run(){
     let result = null;
     let chargerWattage = await charger.getChargerConsumptionInWatts();
     let overflow = counter.data.StatusSNS.E320.Power_in - chargerWattage;
+
+    if(!allowed)
+    {
+        store.write({ state: "did not run because not allowed", overflow: overflow},config.lastset);
+        return;
+    }
+
+
+
     let stopCommandLastTime = shouldStop();
     let wasCharging = chargerWattage > 0 ;
     charger.setThreePhaseAllowed(is3PhaseActivatable(chargerWattage));
