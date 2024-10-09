@@ -8,6 +8,14 @@ function write(content, filename){
     }
 
 }
+function writePlain(content, filename){
+    try {
+        fs.writeFileSync(filename,content);
+    } catch (error) {
+        console.error(error);
+    }
+
+}
 function deleteFile(filename ){
     try {
         fs.unlinkSync(filename);
@@ -69,6 +77,7 @@ module.exports = {
     readPlain,
     exists,
     deleteFile,
-    appendPlain
+    appendPlain,
+    writePlain
 
 }
