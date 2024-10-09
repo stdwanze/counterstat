@@ -1,0 +1,39 @@
+.rahmen{
+    float: left;
+    /*background-color: blue;*/
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%
+}
+.module {
+    font-size: larger;
+    float: left;
+    width: 33.33%;
+    height: 50%;
+    border-style: dotted;
+    border: 2px;
+}
+.big {
+    width: 50%;
+    display: inline-block;
+}
+.small {
+    width: 20%;
+}
+.nested{
+   
+    font-size: medium;
+}
+.element{
+    display: inline-table;
+    
+    height: 10%;
+    
+    margin-top: 10px;
+  
+
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
