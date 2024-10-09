@@ -5,7 +5,7 @@
     width: 100%
 }
 .module {
-    font-size: larger;
+    font-size: xx-large;
     float: left;
     width: 33.33%;
     height: 50%;
@@ -13,7 +13,7 @@
     border: 2px;
 }
 .big {
-    width: 50%;
+    width: 100%;
     display: inline-block;
 }
 .small {
@@ -21,7 +21,7 @@
 }
 .nested{
    
-    font-size: medium;
+    font-size: x-large;
 }
 .element{
     display: inline-table;

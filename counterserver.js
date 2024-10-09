@@ -49,6 +49,45 @@ polka()
 
         res.end(JSON.stringify(strings));
     })
+    .get('/portal', async (req,res)=>{
+        let h = {}; h.Power = {}; h.Power.v = -1;
+        // load sungrow
+        let r =  await getPower();
+        // load hms
+        try { h = await dtu.getPowerDTU();} catch(e){ }
+        let strings = {
+            StringNorth : r.MPPT2,
+            StringSouth: r.MPPT1,
+            StringGarage: h.Power.v,
+            Total: r.MPPT1 + r.MPPT2 + h.Power.v
+        }
+        // load charger
+        var content = io.read(config.lastset);
+        content.load = content.charger != null? content.charger : 0;
+        content.next = content.result != null? content.result.chargersetting: "off";
+        content.overflow = content.charger != null?  (content.export == true? content.overflow*-1 : content.overflow) : content.overflow; 
+
+        var html = io.readPlain("./public/portal.html").toString();
+
+        html = html.replace('{PVSUM}', strings.Total.toFixed(0));
+        html = html.replace('{PVNorth}', strings.StringNorth.toFixed(0));
+        html = html.replace('{PVSouth}', strings.StringSouth.toFixed(0));
+        html = html.replace('{PVGarage}', strings.StringGarage.toFixed(0));
+        
+        html = html.replace('{Charge}', content.load.toFixed(0));
+        html = html.replace('{Next}', content.next);
+        
+        html = html.replace('{overflow}', content.overflow.toFixed(0));
+        
+    
+
+
+
+        
+        res.end(html);
+
+
+    })
     
     
 
