@@ -8,9 +8,11 @@ function config(){
         lastset: "lastset.txt",
         activator: "activator",
         minuteReportFile: "minutereport.csv",
-        dtuurl: "http://192.168.1.105/",
-        cooldown: "cooldown"
+        dtuurl: "http://192.168.1.107/",
+        cooldown: "cooldown",
+        car: "http://192.168.1.160:3000/lastvalparsed"
     }
+
 }
 
 module.exports = {

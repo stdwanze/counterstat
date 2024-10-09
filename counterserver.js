@@ -75,7 +75,7 @@ polka()
             if(s.length < l){
                 for(i = s.length ; i < l; i++)
                 {
-                    s+= " ";
+                    s+= "-";
                 }
 
             }
