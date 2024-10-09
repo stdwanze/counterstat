@@ -56,11 +56,12 @@ polka()
         // load hms
         try { h = await dtu.getPowerDTU();} catch(e){ }
         let strings = {
-            StringNorth : r.MPPT2,
-            StringSouth: r.MPPT1,
+            StringNorth : r.MPPT2!= null? r.MPPT2 : 0,
+            StringSouth: r.MPPT1!=null? r.MPPT1:0,
             StringGarage: h.Power.v,
             Total: r.MPPT1 + r.MPPT2 + h.Power.v
         }
+        strings.Total = strings.Total == null? 0: strings.Total;
         // load charger
         var content = io.read(config.lastset);
         content.load = content.charger != null? content.charger : 0;
