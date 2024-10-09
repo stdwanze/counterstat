@@ -19,6 +19,8 @@
 }
 .small {
     width: 20%;
+    border-style: dotted;
+    border: 1px;
 }
 .nested{
    
