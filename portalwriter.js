@@ -35,6 +35,7 @@ async function  doIt(){
 
         //load car
         let lastCar = await car.load();
+        lastCar.batTemp = ((lastCar.battemplow + lastCar.battemphigh)/2).toFixed(1);
 
         var html = io.readPlain("./portaltemplate.html").toString();
 
@@ -64,7 +65,7 @@ async function  doIt(){
         html = html.replace('{carState}', lastCar.state);
         html = html.replace('{SoC}', lastCar.soc);
         html = html.replace('{Range}',lastCar.range);
-        html = html.replace('{Temp}',lastCar.battemplow+"/"+lastCar.battemplow);
+        html = html.replace('{Temp}',lastCar.batTemp);
         
       
 
