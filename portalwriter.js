@@ -50,7 +50,7 @@ async function  doIt(){
         html = html.replace('{Charge}', minLengthReturn(content.load.toFixed(0),4));
         html = html.replace('{Next}', content.next);
         
-        html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),4));
+        html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),0));
         
         io.writePlain(html,"./public/portal.html")
 
