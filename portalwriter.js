@@ -34,7 +34,7 @@ async function  doIt(){
             if(s.length < l){
                 for(i = s.length ; i < l; i++)
                 {
-                    s+= " ";
+                    s= "-"+s;
                 }
 
             }
@@ -42,15 +42,15 @@ async function  doIt(){
         }
 
 
-        html = html.replace('{PVSUM}', minLengthReturn(strings.Total.toFixed(0),3));
+        html = html.replace('{PVSUM}', minLengthReturn(strings.Total.toFixed(0),4));
         html = html.replace('{PVNorth}',strings.StringNorth.toFixed(0));
         html = html.replace('{PVSouth}', strings.StringSouth.toFixed(0));
         html = html.replace('{PVGarage}', strings.StringGarage.toFixed(0));
         
-        html = html.replace('{Charge}', minLengthReturn(content.load.toFixed(0),3));
+        html = html.replace('{Charge}', minLengthReturn(content.load.toFixed(0),4));
         html = html.replace('{Next}', content.next);
         
-        html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),3));
+        html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),4));
         
         io.writePlain(html,"./public/portal.html")
 
