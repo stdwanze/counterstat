@@ -42,11 +42,13 @@ async function  doIt(){
         function minLengthReturn(s,l){
 
             if(s.length < l){
+                let adds = "<font color='white'>";
                 for(i = s.length ; i < l; i++)
                 {
-                    s= "-"+s;
+                    adds+= "-";
                 }
-
+                adds += "</font>";
+                s = adds+s;
             }
             return s;
         }
