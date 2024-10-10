@@ -22,6 +22,9 @@
     border-style: dotted;
     border: 1px;
 }
+.time {
+    font-size: xx-large;
+}
 .nested{
    
     font-size: xx-large;
