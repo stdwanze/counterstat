@@ -30,8 +30,8 @@ async function  doIt(){
         content.next = content.next.replace("psm", "p");
         content.next = content.next.replace("amp", "a");
         content.next = content.next.replace("chargeStoped", "stop");
-        
-        content.overflow = content.charger != null?  (content.export == true? content.overflow*-1 : content.overflow) : content.overflow; 
+        content.threephase = content.result != null? content.result.threePhase : false;
+        content.overflow = content.charger != null?  (content.export == true? (content.overflow-content.load)*-1 : content.overflow) : content.overflow; 
 
         //load car
         let lastCar = await car.load();
@@ -61,6 +61,7 @@ async function  doIt(){
         
         html = html.replace('{Charge}', minLengthReturn(content.load.toFixed(0),4));
         html = html.replace('{Next}', content.next);
+        html = html.replace('{3p}', content.threephase);
         
         html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),0));
         html = html.replace('{DateTime}',  new Date().toLocaleString());
