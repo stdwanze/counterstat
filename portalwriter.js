@@ -66,7 +66,7 @@ async function  doIt(){
         html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),0));
         html = html.replace('{DateTime}',  new Date().toLocaleString());
         
-        html = html.replace('{carState}', lastCar.state);
+        html = html.replace('{carState}', lastCar.state== "moving"? ".": "");
         html = html.replace('{SoC}', lastCar.soc);
         html = html.replace('{Range}',lastCar.range);
         html = html.replace('{Temp}',lastCar.batTemp);
