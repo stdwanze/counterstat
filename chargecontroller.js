@@ -73,15 +73,16 @@ async function run(){
     });
     let result = null;
     let chargerWattage = await charger.getChargerConsumptionInWatts();
-    let overflow = counter.data.StatusSNS.E320.Power_in - chargerWattage;
+    let overflow = counter.data.StatusSNS.E320.Power_in ;
 
     if(!allowed)
     {
-        store.write({ state: "did not run because not allowed", overflow: overflow},config.lastset);
+        store.write({ state: "did not run because not allowed", overflow: overflow,charger: chargerWattage},config.lastset);
         return;
     }
 
 
+    overflow = counter.data.StatusSNS.E320.Power_in - chargerWattage;
 
     let stopCommandLastTime = shouldStop();
     let wasCharging = chargerWattage > 0 ;
