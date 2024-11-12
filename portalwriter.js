@@ -20,7 +20,8 @@ async function  doIt(){
             StringNorth : isNaN(r.MPPT2)? 0: r.MPPT2 ,
             StringSouth: isNaN(r.MPPT1)? 0: r.MPPT1,
             StringGarage: h.Power.v,
-            Total: r.MPPT1 + r.MPPT2 + h.Power.v
+            Total: r.MPPT1 + r.MPPT2 + h.Power.v,
+            Energy: r.energy
         }
         strings.Total = isNaN(strings.Total)? 0: strings.Total;
         // load charger
@@ -64,6 +65,7 @@ async function  doIt(){
         html = html.replace('{3p}', content.threephase);
         
         html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),0));
+        html = html.replace('{energy}', minLengthReturn(strings.Energy.toFixed(1),0));
         html = html.replace('{DateTime}',  new Date().toLocaleString());
         
         html = html.replace('{carState}', lastCar.state== "moving"? ".": "");
