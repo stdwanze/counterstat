@@ -91,7 +91,7 @@ async function run(){
     if(overflow < 0 ) 
     {       overflow = Math.abs(overflow);
             result = await charger.setPower(overflow,stopCommandLastTime ? false : wasCharging  );
-            store.write({export: true, overflow: overflow , date: new Date(), charger: chargerWattage, result: result},config.lastset);
+            store.write({export: true, overflow: overflow , date: new Date(), chargerOn: chargerWattage, result: result},config.lastset);
           
     }   
     else {
