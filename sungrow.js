@@ -17,9 +17,9 @@ async function getPower(){
 function getPowerinternal(){
 
     const promise = new Promise( (resolve, reject) =>{
-
+        let result = {};
         const wss = new WebSocket("ws://192.168.1.214:8082/ws/home/overview");
-
+                                   
         wss.on('error', console.error);
         wss.on('open', function open() {
           wss.send( JSON.stringify({lang: "de", token: "", service: "connect"}));
@@ -28,6 +28,7 @@ function getPowerinternal(){
     
         wss.on('message', function message(data) {
           
+           
             let token = null;
             let payload = JSON.parse(data); 
             if(payload.result_data.service == "connect") {
@@ -41,12 +42,24 @@ function getPowerinternal(){
                 wss.send( JSON.stringify({lang: "en", token: token , service: "direct", dev_id: ""+devid }));
             }
             if(payload.result_data.service == "direct"){
-                result = {};
+               
         
                 payload.result_data.list.forEach(element => {
                     result[element.name] = parseFloat(element.voltage) * parseFloat(element.current);
                 });
         
+                wss.send( JSON.stringify({lang: "en", token: token , service: "statistics"}));
+               
+            }
+            if(payload.result_data.service == "statistics"){
+               
+        
+                if(payload.result_data.list[0].today_energy != null)
+                {
+                    result["energy"] = parseFloat(payload.result_data.list[0].today_energy);
+                }
+
+             
                 wss.close();
                 resolve(result);
             }
