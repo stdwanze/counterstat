@@ -21,19 +21,21 @@ async function  doIt(){
             StringSouth: isNaN(r.MPPT1)? 0: r.MPPT1,
             StringGarage: h.Power.v,
             Total: r.MPPT1 + r.MPPT2 + h.Power.v,
-            Energy: r.energy
+            Energy: r.energy,
+            Dtu: parseInt(h.YieldDay.v) / 1000
+
         }
         strings.Total = isNaN(strings.Total)? 0: strings.Total;
         // load charger
         var content = io.read(config.lastset);
-        content.load = content.charger != null? content.charger : 0;
+        content.load = content.charger != null? content.charger : content.chargerOn;
         content.next = content.result != null? content.result.chargersetting: "off";
         content.next = content.next.replace("psm", "p");
         content.next = content.next.replace("amp", "a");
         content.next = content.next.replace("chargeStoped", "stop");
         content.threephase = content.result != null? content.result.threePhase : false;
         content.overflow = content.charger != null?  (content.export == true? (content.overflow-content.load)*-1 : content.overflow) : content.overflow; 
-
+        
         //load car
         let lastCar = await car.load();
         lastCar.batTemp = ((lastCar.battemplow + lastCar.battemphigh)/2).toFixed(1);
@@ -66,6 +68,7 @@ async function  doIt(){
         
         html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),0));
         html = html.replace('{energy}', minLengthReturn(strings.Energy.toFixed(1),0));
+        html = html.replace('{dtu}', minLengthReturn(strings.Dtu.toFixed(3),0));
         html = html.replace('{DateTime}',  new Date().toLocaleString());
         
         html = html.replace('{carState}', lastCar.state== "moving"? ".": "");
