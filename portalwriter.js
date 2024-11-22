@@ -38,8 +38,13 @@ async function  doIt(){
         
         //load car
         let lastCar = await car.load();
-        lastCar.batTemp = ((lastCar.battemplow + lastCar.battemphigh)/2).toFixed(1);
-
+        if(lastCar != null){
+            lastCar.batTemp = ((lastCar.battemplow + lastCar.battemphigh)/2).toFixed(1);
+        }
+        else {
+            lastCar = {};
+         
+        }
         var html = io.readPlain("./portaltemplate.html").toString();
 
         function minLengthReturn(s,l){
