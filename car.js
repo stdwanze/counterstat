@@ -11,7 +11,8 @@ async function load(){
     
     let lastcar = await axios({
         method: 'get',
-        url: _url
+        url: _url,
+        timeout: 10000
     });
     
 
