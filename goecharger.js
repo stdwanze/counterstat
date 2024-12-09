@@ -32,7 +32,7 @@ async function  queryState()  {
 
     let res = await axios({
         method: 'get',
-        url: 'api/status?filter=amp,psm,car,tpa',
+        url: 'api/status?filter=amp,psm,car,tpa,frc',
         baseURL: baseurl
     });
     state = res.data;
@@ -80,9 +80,10 @@ async function setPower(pInWatts, considerPostponedStop ){
         amps = 6;
     }
     
-    await set("frc",charge);
-    await set("psm",phases);
-    await set("amp",amps);
+    if(state==null) await getChargerConsumptionInWatts();
+    if(state.frc != charge) await set("frc",charge);
+    if(state.psm != phases) await set("psm",phases);
+    if(state.amp != amps) await set("amp",amps);
     
     return { chargersetting: "amp:"+amps+",psm:"+phases+",chargeStoped:"+charge, commandStop: postpone, woffset: woffset, threePhase: phases==2? true: false};
        
