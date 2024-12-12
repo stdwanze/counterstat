@@ -9,8 +9,26 @@ var config = require('./config').config();
 dtu.init(config.dtuurl);
 car.setup(config.car);
 
+function refresh(){
+    var html = io.readPlain("./refreshtemplate.html").toString();
+    io.writePlain(html,"./public/portal.html")
+
+}
+function isRefreshTime(){
+    let m = new Date();
+    let ret = false;
+    m.getMinutes() == 30 ? ret= true: ret= false;
+    return ret;
+}
 
 async function  doIt(){
+
+        if(isRefreshTime()) {
+            refresh();
+
+            return;
+        }
+
         let h = {}; h.Power = {}; h.Power.v = -1;
         // load sungrow
         let r =  await getPower();
