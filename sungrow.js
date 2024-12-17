@@ -31,38 +31,47 @@ function getPowerinternal(){
            
             let token = null;
             let payload = JSON.parse(data); 
-            if(payload.result_data.service == "connect") {
-                token = payload.result_data.token;
-        
-                wss.send(JSON.stringify({lang: "en", token: token, service: "devicelist", type: "0", is_check_token : "0" }));
-            }
-            if(payload.result_data.service == "devicelist"){
-        
-                let devid = payload.result_data.list[0].dev_id;
-                wss.send( JSON.stringify({lang: "en", token: token , service: "direct", dev_id: ""+devid }));
-            }
-            if(payload.result_data.service == "direct"){
-               
-        
-                payload.result_data.list.forEach(element => {
-                    result[element.name] = parseFloat(element.voltage) * parseFloat(element.current);
-                });
-        
-                wss.send( JSON.stringify({lang: "en", token: token , service: "statistics"}));
-               
-            }
-            if(payload.result_data.service == "statistics"){
-               
-        
-                if(payload.result_data.list[0].today_energy != null)
-                {
-                    result["energy"] = parseFloat(payload.result_data.list[0].today_energy);
-                }
 
-             
+            if( payload.result_data != null) {
+                switch(payload.result_data.service)
+                {
+                    case "connect" :  {
+                        token = payload.result_data.token;
+                        wss.send(JSON.stringify({lang: "en", token: token, service: "devicelist", type: "0", is_check_token : "0" }));
+                        break;
+                    }  
+                    case "devicelist" : {
+                        let devid = payload.result_data.list[0].dev_id;
+                        wss.send( JSON.stringify({lang: "en", token: token , service: "direct", dev_id: ""+devid }));
+                        break;
+                    }
+                    case "direct": {
+                        payload.result_data.list.forEach(element => {
+                            result[element.name] = parseFloat(element.voltage) * parseFloat(element.current);
+                        });
+                        wss.send( JSON.stringify({lang: "en", token: token , service: "statistics"}));
+                        break;
+                    }
+                    case "statistics": {
+                        if(payload.result_data.list[0].today_energy != null)
+                        {
+                            result["energy"] = parseFloat(payload.result_data.list[0].today_energy);
+                        }
+                        wss.close();
+                        resolve(result);
+                        break;
+                    }
+                    default: {
+                        wss.close();
+                        resolve(result);
+                    }
+                }
+            }
+            else {
                 wss.close();
                 resolve(result);
             }
+            
         });
         
 
