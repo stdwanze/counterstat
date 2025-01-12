@@ -1,5 +1,7 @@
 
 const { getPower } = require('./sungrow');
+
+var axios = require('axios');
 const dtu = require('./hoyemiles');
 const car = require('./car');
 var store = require('./store');
@@ -54,6 +56,13 @@ async function  doIt(){
         content.threephase = content.result != null? content.result.threePhase : false;
         content.overflow = content.charger != null?  (content.export == true? (content.overflow-content.load)*-1 : content.overflow) : content.overflow; 
         
+
+        // load performance
+        let performace = await axios({
+            method: 'get',
+            url: config.performance,
+        });
+
         //load car
         let lastCar = await car.load();
         if(lastCar != null){
@@ -93,6 +102,10 @@ async function  doIt(){
         html = html.replace('{energy}', minLengthReturn(strings.Energy.toFixed(1),0));
         html = html.replace('{dtu}', minLengthReturn(strings.Dtu.toFixed(3),0));
         html = html.replace('{DateTime}',  new Date().toLocaleString());
+        html = html.replace('{consumption}', minLengthReturn(performace.data.totalConsumption.toFixed(1),0));
+        html = html.replace('{autarchy}', minLengthReturn(performace.data.autarchy.toFixed(1),0));
+        html = html.replace('{ownuse}', minLengthReturn(performace.data.ownConsumption.toFixed(1),0));
+        html = html.replace('{deliver}', minLengthReturn(performace.data.delivered.toFixed(1),0));
         
         html = html.replace('{carState}', lastCar.state== "moving"? ".": "");
         html = html.replace('{SoC}', lastCar.soc);

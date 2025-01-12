@@ -10,7 +10,8 @@ function config(){
         minuteReportFile: "minutereport.csv",
         dtuurl: "http://192.168.1.107/",
         cooldown: "cooldown",
-        car: "http://192.168.1.160:3000/lastvalparsed"
+        car: "http://192.168.1.160:3000/lastvalparsed",
+        performance: "http://192.168.1.160:5000/currDayPerformance"
     }
 
 }

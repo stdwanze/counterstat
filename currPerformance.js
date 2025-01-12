@@ -17,7 +17,8 @@ function getCurrPerf(store, sungrow, dtu, currCount){
         ownConsumption : usedEnergy,
         autarchy : (usedEnergy/totalEnergy) * 100,
         delivered: cOut,
-        grid: cIn
+        grid: cIn,
+        produced: energy
     }
     return res;
 }
