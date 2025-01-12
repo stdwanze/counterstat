@@ -33,7 +33,7 @@ async function  doIt(){
         // load sungrow
         let r =  await getPower();
         // load hms
-        try { h = await dtu.getPowerDTU();} catch(e){ }
+        try { h = await dtu.getPowerDTU();} catch(e){  h = { YieldDay: { v : -1 }}}
         let strings = {
             StringNorth : isNaN(r.MPPT2)? 0: r.MPPT2 ,
             StringSouth: isNaN(r.MPPT1)? 0: r.MPPT1,

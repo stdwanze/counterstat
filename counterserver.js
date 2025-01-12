@@ -1,11 +1,13 @@
 const polka = require('polka');
 const { join } = require('path');
+var axios = require('axios');
 const { json } = require('body-parser');
 const { getPower } = require('./sungrow');
 const dtu = require('./hoyemiles');
 
 var store = require('./store');
 var io = require('./io');
+var { getCurrPerf } = require("./currPerformance");
 var config = require('./config').config();
 const dir = join(__dirname, 'public');
 const serve = require('serve-static')(dir);
@@ -17,6 +19,19 @@ polka()
     .get('/stats', (req,res) =>{
         store.init(config.storeFileName);
         res.end(JSON.stringify(store.getRecords()));
+    })
+    .get("/currDayPerformance", async (req,res) =>{
+        store.init(config.storeFileName);
+        let counter = await axios({
+            method: 'get',
+            url: config.counterUrl,
+        });
+        let sun = await getPower();
+        let h = null;
+        try { h = await dtu.getPowerDTU();} catch(e){  h = { YieldDay: { v : -1 }}}
+        let perf = getCurrPerf(store,sun,h,counter);
+        res.end(JSON.stringify(perf));
+
     })
     .get('/activate/:limit', (req,res)=> {
         io.write({ offset: req.params.limit},config.activator);
