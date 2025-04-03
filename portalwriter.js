@@ -38,7 +38,7 @@ async function  doIt(){
 
         let h = {}; h.Power = {}; h.Power.v = -1;
         // load sungrow
-        let r =  performace.sungrowRaw;//await getPower();
+        let r =  performace.data.sungrowRaw;//await getPower();
         // load hms
         try { h = await dtu.getPowerDTU();} catch(e){  h.YieldDay = { v : -1 };}
         let strings = {
