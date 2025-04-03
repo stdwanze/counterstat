@@ -6,7 +6,7 @@ function getCurrPerf(store, sungrow, dtu, currCount){
     let energy = sungrow.energy + parseInt(dtu.YieldDay.v) / 1000
     let cOut = currCount.data.StatusSNS.E320.Total_out
     let cIn = currCount.data.StatusSNS.E320.Total_in;
-
+    let sungrowRaw = sungrow;
     cIn = cIn - records.totalconsumed;
     cOut = cOut - records.totaldelivered;
     let usedEnergy = energy - cOut;
@@ -18,7 +18,8 @@ function getCurrPerf(store, sungrow, dtu, currCount){
         autarchy : (usedEnergy/totalEnergy) * 100,
         delivered: cOut,
         grid: cIn,
-        produced: energy
+        produced: energy,
+        sungrowRaw: sungrowRaw
     }
     return res;
 }
