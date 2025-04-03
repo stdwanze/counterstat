@@ -30,10 +30,15 @@ async function  doIt(){
 
             return;
         }
+        // load performance
+        let performace = await axios({
+            method: 'get',
+            url: config.performance,
+        });
 
         let h = {}; h.Power = {}; h.Power.v = -1;
         // load sungrow
-        let r =  await getPower();
+        let r =  performace.sungrowRaw;//await getPower();
         // load hms
         try { h = await dtu.getPowerDTU();} catch(e){  h.YieldDay = { v : -1 };}
         let strings = {
@@ -57,11 +62,7 @@ async function  doIt(){
         content.overflow = content.charger != null?  (content.export == true? (content.overflow-content.load)*-1 : content.overflow) : content.overflow; 
         
 
-        // load performance
-        let performace = await axios({
-            method: 'get',
-            url: config.performance,
-        });
+        
 
         //load car
         let lastCar = await car.load();
