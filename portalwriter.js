@@ -42,8 +42,8 @@ async function  doIt(){
         // load hms
         try { h = await dtu.getPowerDTU();} catch(e){  h.YieldDay = { v : -1 };}
         let strings = {
-            StringNorth : isNaN(r.MPPT2)? 0: r.MPPT2 ,
-            StringSouth: isNaN(r.MPPT1)? 0: r.MPPT1,
+            StringNorth : isNaN(r.MPPT2) || r.MPPT1 == null ? 0: r.MPPT2 ,
+            StringSouth: isNaN(r.MPPT1) || r.MPPT2 == null? 0: r.MPPT1,
             StringGarage: h.Power.v,
             Total: r.MPPT1 + r.MPPT2 + h.Power.v,
             Energy: r.energy,
