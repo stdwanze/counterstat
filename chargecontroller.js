@@ -72,12 +72,14 @@ async function run(){
         url: counterurl,
     });
     let result = null;
-    let chargerWattage = await charger.getChargerConsumptionInWatts();
+    let chargerData = await charger.getChargerConsumptionInWattsAndWh();
+    let chargerWattage = chargerData.load;
+    
     let overflow = counter.data.StatusSNS.E320.Power_in ;
 
     if(!allowed)
     {
-        store.write({ state: "did not run because not allowed", overflow: overflow,chargerOn: chargerWattage},config.lastset);
+        store.write({ state: "did not run because not allowed", overflow: overflow,chargerOn: chargerWattage, charged: chargerData.charged },config.lastset);
         return;
     }
 
@@ -91,7 +93,7 @@ async function run(){
     if(overflow < 0 ) 
     {       overflow = Math.abs(overflow);
             result = await charger.setPower(overflow,stopCommandLastTime ? false : wasCharging  );
-            store.write({export: true, overflow: overflow , date: new Date(), charger: chargerWattage, result: result},config.lastset);
+            store.write({export: true, overflow: overflow , date: new Date(), charger: chargerWattage,charged: chargerData.charged , result: result},config.lastset);
           
     }   
     else {
@@ -103,7 +105,7 @@ async function run(){
             result = await charger.setPower(-1,wasCharging);
         }
        
-        store.write({ export: false,overflow: overflow , date: new Date(), charger: chargerWattage,result: result} ,config.lastset);
+        store.write({ export: false,overflow: overflow , date: new Date(), charger: chargerWattage, charged: chargerData.charged ,result: result} ,config.lastset);
     }
     console.log("charger set "+ JSON.stringify(result));
     if(chargerWattage > 4200 && result.threePhase == false) setCooldown();

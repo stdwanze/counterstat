@@ -32,7 +32,7 @@ async function  queryState()  {
 
     let res = await axios({
         method: 'get',
-        url: 'api/status?filter=amp,psm,car,tpa,frc',
+        url: 'api/status?filter=amp,psm,car,tpa,frc,wh',
         baseURL: baseurl
     });
     state = res.data;
@@ -42,6 +42,13 @@ async function getChargerConsumptionInWatts(){
 
     if(state == null) await queryState();
     return state.car == 2 ? state.tpa : 0;
+}
+async function getChargerConsumptionInWattsAndWh(){
+
+    if(state == null) await queryState();
+    let res = { load: state.car == 2 ? state.tpa : 0 , charged: Math.floor(state.wh)/1000}
+
+    return res;
 }
 
 async function setPower(pInWatts, considerPostponedStop ){
@@ -92,6 +99,7 @@ async function setPower(pInWatts, considerPostponedStop ){
 module.exports = {
     init,
     getChargerConsumptionInWatts,
+    getChargerConsumptionInWattsAndWh,
     setPower,
     setOffset,
     setThreePhaseAllowed
