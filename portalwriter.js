@@ -60,7 +60,7 @@ async function  doIt(){
         content.next = content.next.replace("chargeStoped", "stop");
         content.threephase = content.result != null? content.result.threePhase : false;
         content.overflow = content.charger != null?  (content.export == true? (content.overflow-content.load)*-1 : content.overflow) : content.overflow; 
-        
+        content.charged = content.charged;
 
         
 
@@ -97,7 +97,7 @@ async function  doIt(){
         
         html = html.replace('{Charge}', minLengthReturn(content.load.toFixed(0),4));
         html = html.replace('{Next}', content.next);
-        html = html.replace('{3p}', content.threephase);
+        html = html.replace('{charged}', content.charged);
         
         html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),0));
         html = html.replace('{energy}', minLengthReturn(strings.Energy.toFixed(1),0));
