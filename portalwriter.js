@@ -15,19 +15,39 @@ function refresh(){
     var html = io.readPlain("./refreshtemplate.html").toString();
     io.writePlain(html,"./public/portal.html")
 
+
 }
+function setChart(){
+    var html = io.readPlain("./charttemplate.html").toString();
+    io.writePlain(html,"./public/portal.html")
+
+    
+}
+
+
 function isRefreshTime(){
     let m = new Date();
     let ret = false;
     m.getMinutes() == 30 ? ret= true: ret= false;
     return ret;
 }
+function isChartTime(){
+    let m = new Date();
+    let ret = false;
+    m.getMinutes() % 2 == 0 ?  ret= true: ret= false;
+    return ret;
+}
+
 
 async function  doIt(){
 
         if(isRefreshTime()) {
             refresh();
 
+            return;
+        }
+        if(!isChartTime()) {
+            setChart();
             return;
         }
         // load performance
