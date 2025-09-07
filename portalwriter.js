@@ -34,7 +34,7 @@ function isRefreshTime(){
 function isChartTime(){
     let m = new Date();
     let ret = false;
-    m.getMinutes() % 2 == 0 ?  ret= true: ret= false;
+    m.getMinutes() % 3 == 0 ?  ret= true: ret= false;
     return ret;
 }
 
@@ -46,7 +46,7 @@ async function  doIt(){
 
             return;
         }
-        if(!isChartTime()) {
+        if(isChartTime()) {
             setChart();
             return;
         }
