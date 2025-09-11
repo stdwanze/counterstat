@@ -6,7 +6,8 @@ var store = require('./io');
 var config = require('./config').config();
 var charger = require('./goecharger');
 charger.init(config.goeChargerUrl);
-var counterurl = config.counterUrl;
+var counterurl = config.last30smedian;
+
 if(!store.exists(config.lastset)) store.write({},config.lastset);
 if(!store.exists(config.cooldown)) store.write({ periodsLeft: 0 },config.cooldown);
 
@@ -75,7 +76,7 @@ async function run(){
     let chargerData = await charger.getChargerConsumptionInWattsAndWh();
     let chargerWattage = chargerData.load;
     
-    let overflow = counter.data.StatusSNS.E320.Power_in ;
+    let overflow = counter.median30s;
 
     if(!allowed)
     {
@@ -84,7 +85,7 @@ async function run(){
     }
 
 
-    overflow = counter.data.StatusSNS.E320.Power_in - chargerWattage;
+    overflow = overflow - chargerWattage;
 
     let stopCommandLastTime = shouldStop();
     let wasCharging = chargerWattage > 0 ;
