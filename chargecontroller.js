@@ -76,7 +76,7 @@ async function run(){
     let chargerData = await charger.getChargerConsumptionInWattsAndWh();
     let chargerWattage = chargerData.load;
     
-    let overflow = counter.median30s;
+    let overflow = counter.data.median30s;
 
     if(!allowed)
     {
