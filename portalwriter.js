@@ -41,6 +41,7 @@ function isChartTime(){
 
 async function  doIt(){
 
+        console.log("start: " + new Date());
         if(isRefreshTime()) {
             refresh();
 
@@ -56,6 +57,7 @@ async function  doIt(){
             url: config.performance,
         });
 
+         console.log("got Performance: " + new Date());
         let h = {}; h.Power = {}; h.Power.v = -1;
         // load sungrow
         let r =  performace.data.sungrowRaw;//await getPower();
@@ -138,6 +140,7 @@ async function  doIt(){
 
         io.writePlain(html,"./public/portal.html")
 
+         console.log("end: " + new Date());
     }
 
 doIt();
