@@ -34,7 +34,8 @@ function getCurrPerf(store, sungrow, dtu, currCount){
         delivered: cOut,
         grid: cIn,
         produced: energy,
-        sungrowRaw: sungrowRaw
+        sungrowRaw: sungrowRaw,
+        dtu: dtuVal
     }
     return res;
 }
