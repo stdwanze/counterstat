@@ -69,8 +69,7 @@ async function  doIt(){
             StringGarage: h.Power.v,
             Total: r.MPPT1 + r.MPPT2 + h.Power.v,
             Energy: r.energy,
-            Dtu: parseInt(h.YieldDay.v) / 1000
-
+            Dtu: performace.data.dtu
         }
         strings.Total = isNaN(strings.Total)? 0: strings.Total;
         // load charger
