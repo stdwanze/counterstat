@@ -89,7 +89,7 @@ async function  doIt(){
         content.overflow = content.charger != null?  (content.export == true? (content.overflow-content.load)*-1 : content.overflow) : content.overflow; 
         content.charged = content.charged;
 
-        write
+  
 
         //load car
         let lastCar = await car.load();
