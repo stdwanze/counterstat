@@ -1,8 +1,8 @@
 
 const Influx = require('influx')
-const config = require('./config.js');
+var config = require('./config').config();
 
-let powerPw = config().powerPw;
+let powerPw = config.powerPw;
 
 const influx = new Influx.InfluxDB({
   host: '192.168.1.55',
