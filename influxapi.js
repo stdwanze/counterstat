@@ -1,6 +1,6 @@
 
 import Influx from 'influx'
-import config from './config.js';
+const config = require('./config.js');
 
 let powerPw = config().powerPw;
 
