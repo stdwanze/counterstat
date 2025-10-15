@@ -1,6 +1,6 @@
 
 const { getPower } = require('./sungrow');
-import { writePV, writePVEnergy, writeGridEnergy } from './influxapi.js';
+const { writePV, writePVEnergy, writeGridEnergy } = require('./influxapi.js');
 var axios = require('axios');
 const dtu = require('./hoyemiles');
 const car = require('./car');

@@ -16,9 +16,9 @@
     "serve-static": "^1.15.0",
     "websocket": "^1.0.34",
     "ws": "^8.14.2"
-  },
+  }
   
-  "type": "module"
+
   
 
 }

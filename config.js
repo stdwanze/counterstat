@@ -12,7 +12,8 @@ function config(){
         cooldown: "cooldown",
         car: "http://192.168.1.160:3000/lastvalparsed",
         performance: "http://192.168.1.160:5000/currDayPerformance",
-        last30smedian: "http://192.168.1.164:3001/median30s"
+        last30smedian: "http://192.168.1.164:3001/median30s",
+        powerPw: "power"
     }
 
 }

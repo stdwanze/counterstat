@@ -1,6 +1,6 @@
 
 
-
+var writeCharger = require('./influxapi.js').writeCharger;
 var axios = require('axios');
 var store = require('./io');
 var config = require('./config').config();
