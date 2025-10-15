@@ -23,7 +23,6 @@ const influx = new Influx.InfluxDB({
         console.log('Verbindung hergestellt & Datenbank bereit.')
 
 
-        console.log(`Schreibe Datenpunkt: Wert=${val}, Zeit=${time.toISOString()}`);
         // Beispiel: Datenpunkt schreiben
         return influx.writePoints([
         {
@@ -51,7 +50,6 @@ const influx = new Influx.InfluxDB({
         console.log('Verbindung hergestellt & Datenbank bereit.')
 
 
-        console.log(`Schreibe Datenpunkt: Wert=${val}, Zeit=${time.toISOString()}`);
         // Beispiel: Datenpunkt schreiben
         return influx.writePoints([
         {
@@ -79,7 +77,6 @@ const influx = new Influx.InfluxDB({
         console.log('Verbindung hergestellt & Datenbank bereit.')
 
 
-        console.log(`Schreibe Datenpunkt: Wert=${val}, Zeit=${time.toISOString()}`);
         // Beispiel: Datenpunkt schreiben
         return influx.writePoints([
         {
@@ -107,7 +104,6 @@ const influx = new Influx.InfluxDB({
         console.log('Verbindung hergestellt & Datenbank bereit.')
 
 
-        console.log(`Schreibe Datenpunkt: Wert=${val}, Zeit=${time.toISOString()}`);
         // Beispiel: Datenpunkt schreiben
         return influx.writePoints([
         {
