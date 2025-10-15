@@ -1,5 +1,5 @@
 
-import Influx from 'influx'
+const Influx = require('influx')
 const config = require('./config.js');
 
 let powerPw = config().powerPw;
@@ -12,7 +12,7 @@ const influx = new Influx.InfluxDB({
   password: powerPw,       // optional
 })
 
-export function writeGridEnergy(totalConsumption,ownConsumption,delivered,autarchy, time) {
+ function writeGridEnergy(totalConsumption,ownConsumption,delivered,autarchy, time) {
     influx.getDatabaseNames()
     .then(names => {
         if (!names.includes('powerdata')) {
@@ -40,7 +40,7 @@ export function writeGridEnergy(totalConsumption,ownConsumption,delivered,autarc
     })
 
 }
-export function writePVEnergy(sungrow,garage, time) {
+ function writePVEnergy(sungrow,garage, time) {
     influx.getDatabaseNames()
     .then(names => {
         if (!names.includes('powerdata')) {
@@ -68,7 +68,7 @@ export function writePVEnergy(sungrow,garage, time) {
     })
 
 }
-export function writePV(total,north,south,garage, time) {
+ function writePV(total,north,south,garage, time) {
     influx.getDatabaseNames()
     .then(names => {
         if (!names.includes('powerdata')) {
@@ -96,7 +96,7 @@ export function writePV(total,north,south,garage, time) {
     })
 
 }
-export function writeCharger(power,charged, time) {
+ function writeCharger(power,charged, time) {
     influx.getDatabaseNames()
     .then(names => {
         if (!names.includes('powerdata')) {
@@ -123,4 +123,6 @@ export function writeCharger(power,charged, time) {
         console.error('Fehler:', err)
     })
 };
+
+module.exports = { writePV, writePVEnergy, writeGridEnergy, writeCharger };
 
