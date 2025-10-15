@@ -71,6 +71,12 @@ async function  doIt(){
             Energy: r.energy,
             Dtu: performace.data.dtu
         }
+
+        writePV(strings.Total,strings.StringNorth, strings.StringSouth, strings.StringGarage, new Date());
+        writePVEnergy(strings.Energy,strings.Dtu, new Date());
+        writeGridEnergy(performace.data.totalConsumption,performace.data.ownConsumption,performace.data.delivered,performace.data.autarchy, new Date());
+
+
         strings.Total = isNaN(strings.Total)? 0: strings.Total;
         // load charger
         var content = io.read(config.lastset);
@@ -83,7 +89,7 @@ async function  doIt(){
         content.overflow = content.charger != null?  (content.export == true? (content.overflow-content.load)*-1 : content.overflow) : content.overflow; 
         content.charged = content.charged;
 
-        
+        write
 
         //load car
         let lastCar = await car.load();

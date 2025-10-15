@@ -78,6 +78,8 @@ async function run(){
     
     let overflow = counter.data.median30s;
 
+
+
     if(!allowed)
     {
         store.write({ state: "did not run because not allowed", overflow: overflow,chargerOn: chargerWattage, charged: chargerData.charged },config.lastset);
@@ -95,7 +97,7 @@ async function run(){
     {       overflow = Math.abs(overflow);
             result = await charger.setPower(overflow,stopCommandLastTime ? false : wasCharging  );
             store.write({export: true, overflow: overflow , date: new Date(), charger: chargerWattage,charged: chargerData.charged , result: result},config.lastset);
-          
+           
     }   
     else {
         
@@ -107,9 +109,11 @@ async function run(){
         }
        
         store.write({ export: false,overflow: overflow , date: new Date(), charger: chargerWattage, charged: chargerData.charged ,result: result} ,config.lastset);
+        
     }
     console.log("charger set "+ JSON.stringify(result));
     if(chargerWattage > 4200 && result.threePhase == false) setCooldown();
+    writeCharger(chargerWattage,chargerData.charged, new Date());
 
 }
 

@@ -32,7 +32,7 @@ async function  queryState()  {
 
     let res = await axios({
         method: 'get',
-        url: 'api/status?filter=amp,psm,car,tpa,frc,wh',
+        url: 'api/status?filter=amp,psm,car,tpa,frc,wh&token=MC6Nfnc260V6XSQ2EJl9BnUYoQu10hTC',
         baseURL: baseurl
     });
     state = res.data;
@@ -85,6 +85,10 @@ async function setPower(pInWatts, considerPostponedStop ){
     if(pInWatts > _base+2000 && threePhaseAllowed){
         phases = 2;
         amps = 6;
+    }
+     if(pInWatts > _base+4500 && threePhaseAllowed){
+        phases = 2;
+        amps = 10;
     }
     
     if(state==null) await getChargerConsumptionInWatts();
