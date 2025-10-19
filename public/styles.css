@@ -8,7 +8,7 @@
     font-size: 45px;
     float: left;
     width: 45.33%;
-    height: 50%;
+    height: 40%;
     border-style: dotted;
     border: 2px;
     margin-left: 20px;
@@ -32,7 +32,7 @@
 .element{
     display: inline-table;
     
-    height: 10%;
+    height: 7%;
     
     margin-top: 10px;
   
