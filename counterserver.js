@@ -68,23 +68,7 @@ polka()
         throw new Error("Dies ist ein absichtlich erzeugter Fehler für Testzwecke.");
     })
 
-    .use((err, req, res, next) => {
-        console.error("Fehler beim Verarbeiten der Anfrage:", err);
-
-        // Beispiel: unterscheiden, ob statische Datei fehlt oder anderer Fehler
-        if (err.code === "ENOENT") {
-             res.end(JSON.stringify({
-                error: "Interner Serverfehler",
-                details: err.message,
-            }));
-        } else {
-            res.end(JSON.stringify({
-                error: "Interner Serverfehler",
-                details: err.message,
-            }));
-        }
-    })
-
+   
 
     .listen(5000, err => {
         if (err) throw err;
