@@ -13,9 +13,28 @@ const dir = join(__dirname, 'public');
 const serve = require('serve-static')(dir);
 dtu.init(config.dtuurl);
 
+function handleError(err, req, res) {
+  console.error('Static file error:', err);
+  res.statusCode = 500;
+  res.end('Static file error');
+}
+// Wrapper, der Fehler aus Middleware-Callbacks abfängt
+function safe(mw) {
+  return (req, res, next) => {
+    try {
+      mw(req, res, (err) => {
+        if (err) handleError(err, req, res);
+        else next();
+      });
+    } catch (err) {
+      handleError(err, req, res);
+    }
+  };
+}
+
 polka()
     .use(json())
-    .use(serve)
+    .use(safe(serve))  // Verwende den sicheren Wrapper
     .get('/stats', (req, res) => {
         store.init(config.storeFileName);
         res.end(JSON.stringify(store.getRecords()));
