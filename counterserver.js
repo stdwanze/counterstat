@@ -73,12 +73,15 @@ polka()
 
         // Beispiel: unterscheiden, ob statische Datei fehlt oder anderer Fehler
         if (err.code === "ENOENT") {
-            res.status(404).json({ error: "Datei nicht gefunden" });
-        } else {
-            res.status(500).json({
+             res.end(JSON.stringify({
                 error: "Interner Serverfehler",
                 details: err.message,
-            });
+            }));
+        } else {
+            res.end(JSON.stringify({
+                error: "Interner Serverfehler",
+                details: err.message,
+            }));
         }
     })
 
