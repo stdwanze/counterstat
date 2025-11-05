@@ -1,5 +1,6 @@
 const polka = require('polka');
 const { join } = require('path');
+const fs = require('fs');
 var axios = require('axios');
 const { json } = require('body-parser');
 const { getPower } = require('./sungrow');
@@ -14,22 +15,22 @@ const serve = require('serve-static')(dir);
 dtu.init(config.dtuurl);
 
 function handleError(err, req, res) {
-  console.error('Static file error:', err);
-  res.statusCode = 500;
-  res.end('Static file error');
+    console.error('Static file error:', err);
+    res.statusCode = 500;
+    res.end('Static file error');
 }
 // Wrapper, der Fehler aus Middleware-Callbacks abfängt
 function safe(mw) {
-  return (req, res, next) => {
-    try {
-      mw(req, res, (err) => {
-        if (err) handleError(err, req, res);
-        else next();
-      });
-    } catch (err) {
-      handleError(err, req, res);
-    }
-  };
+    return (req, res, next) => {
+        try {
+            mw(req, res, (err) => {
+                if (err) handleError(err, req, res);
+                else next();
+            });
+        } catch (err) {
+            handleError(err, req, res);
+        }
+    };
 }
 
 polka()
@@ -83,13 +84,45 @@ polka()
 
         res.end(JSON.stringify(strings));
     })
-    .get("/error"  , (req, res) => {
+    .get("/error", (req, res) => {
         throw new Error("Dies ist ein absichtlich erzeugter Fehler für Testzwecke.");
     })
+    .get('/portal', (req, res) => {
+        // Achtung: niemals ungeprüfte Pfade direkt verwenden! Nur erlaubte Namen zulassen.
+        
+        try{
+        const name = "portal";
 
-   
 
-    .listen(5000, err => {
+        const filePath = join(__dirname, 'public', `${name}.html`);
+
+        // Optional: Content-Length durch fs.stat ermitteln
+        fs.stat(filePath, (err, stats) => {
+            if (err || !stats.isFile()) {
+                return res.status(404).send('Datei nicht gefunden');
+            }
+
+            res.setHeader('Content-Type', 'text/html; charset=utf-8');
+            // Cache-Control optional
+            res.setHeader('Cache-Control', 'no-cache');
+
+            // Streamen (speicherfreundlich)
+            const stream = fs.createReadStream(filePath);
+            stream.on('error', (err) => {
+                console.error('Read error', err);
+                if (!res.headersSent) res.end('<html></head><body>Server error</body></html>');
+                else res.end();
+            });
+            stream.pipe(res);
+        });
+    }catch(err){
+        console.error('Fehler beim Laden der Portal-Seite:', err);
+        res.statusCode = 500;
+        res.end('Serverfehler beim Laden der Portal-Seite');
+    }})
+
+
+    .listen(5001, err => {
         if (err) throw err;
         console.log(`> Running on localhost:5000`);
     });
