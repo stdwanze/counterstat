@@ -5,7 +5,7 @@ var config = require('./config').config();
 let powerPw = config.powerPw;
 
 const influx = new Influx.InfluxDB({
-  host: '192.168.1.55',
+  host: '192.168.1.89',
   port: 8086,                 // Standardport
   database: 'powerdata',    // deine Datenbank
   username: 'loggerPwr',           // optional
