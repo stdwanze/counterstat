@@ -12,12 +12,12 @@ function initRunner(url,storeFileName){
 function run(){
 
 
-  request(options, function (error, response) {
+ /* request(options, function (error, response) {
     if (error) throw new Error(error);
     var data = JSON.parse(response.body);
     store.appendPlain(data.StatusSNS.Time+","+data.StatusSNS.E320.Power_in+"\n",config.minuteReportFile);
     });
-
+*/
     axios({
         method: 'get',
         url: counterurl,

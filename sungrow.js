@@ -1,10 +1,15 @@
 const { WebSocket } = require("ws");
-
+let semaphore = false;
 async function getPower(){
     try{
+    
+    if(semaphore) return null;
+    semaphore = true;
+    
     let res = await getPowerinternal();
     console.log(res);
 
+    semaphore = false;
     return res;
     }
     catch(e)
