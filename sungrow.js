@@ -14,6 +14,7 @@ async function getPower(){
     }
     catch(e)
     {
+        semaphore = false;
         console.log(e);
         return null;
     }
