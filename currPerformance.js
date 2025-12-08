@@ -18,7 +18,7 @@ function getCurrPerf(store, sungrow, dtu, currCount){
     let dtuVal = manageCurrTop(parseInt(dtu.YieldDay.v) / 1000);
 
     let records = store.getRecords();
-    let energy = sungrow.energy + dtuVal
+    let energy = sungrow != null ? sungrow.energy + dtuVal : dtuVal;
     let cOut = currCount.data.StatusSNS.E320.Total_out
     let cIn = currCount.data.StatusSNS.E320.Total_in;
     let sungrowRaw = sungrow;
