@@ -61,6 +61,9 @@ async function  doIt(){
         let h = {}; h.Power = {}; h.Power.v = -1;
         // load sungrow
         let r =  performace.data.sungrowRaw;//await getPower();
+        if(r == null){
+            r = { MPPT1: 0, MPPT2: 0, energy: 0};
+        }
         // load hms
         try { h = await dtu.getPowerDTU();} catch(e){  h.YieldDay = { v : -1 };}
         let strings = {
