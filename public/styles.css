@@ -1,3 +1,18 @@
+.tempbanner {
+    background-color: #2c3e50;
+    color: white;
+    padding: 8px 20px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-bottom: 2px solid #34495e;
+}
+
+.temptext {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
 .rahmen{
     float: left;
     /*background-color: blue;*/
@@ -5,13 +20,14 @@
     width: 100%
 }
 .module {
-    font-size: 55px;
+    font-size: 48px;
     float: left;
-    width: 45.33%;
+    width: 47%;
     height: 40%;
     border-style: dotted;
     border: 2px;
     margin-left: 20px;
+    margin-top: 10px;
 }
 .big {
     width: 100%;
@@ -23,11 +39,11 @@
     border: 1px;
 }
 .time {
-    font-size: x-large;
+    font-size: large;
 }
 .nested{
    
-    font-size: 22px;
+    font-size: 20px;
 }
 .element{
     display: inline-table;

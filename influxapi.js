@@ -120,5 +120,20 @@ const influx = new Influx.InfluxDB({
     })
 };
 
-module.exports = { writePV, writePVEnergy, writeGridEnergy, writeCharger };
+async function getOutsideTemperature() {
+    try {
+        const result = await influx.query(
+            `select mean("Aussentemperatur") as mean_temp from "powerdata"."autogen"."Heatpump" where time > now() - 1h limit 1`
+        );
+        if (result && result.length > 0 && result[0]) {
+            return result[0].mean_temp.toFixed(1);
+        }
+        return 'N/A';
+    } catch (err) {
+        console.error('Temperature query error:', err);
+        return 'N/A';
+    }
+}
+
+module.exports = { writePV, writePVEnergy, writeGridEnergy, writeCharger, getOutsideTemperature };
 

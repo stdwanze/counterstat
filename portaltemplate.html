@@ -6,6 +6,9 @@
     </head>
 
     <body>
+        <div class="tempbanner">
+            <span class="temptext">Outside: {OutsideTemp}°C</span>
+        </div>
         <div class="rahmen">
         <div id="pv" class="module">
             <span class="big element" >PV {PVSUM} W</span>
@@ -39,9 +42,9 @@
         <div id="car" class="module floatright">
             <span class="big element">Hnsi: <font size='10'>{carState}</font> </span>
             <div class="nested">
-                <span class="small element"> SoC </br>{SoC} </br>%</span>
-                <span class="small element"> Range </br>{Range} </br>km</span>
-                <span class="small element"> Tb </br>{Temp} </br>C</span>
+                <span class="small element"> SoC </br>{SoC}%</span>
+                <span class="small element"> Range </br>{Range}km</span>
+                <span class="small element"> Bat </br>{Temp}°C</span>
             </div>
         </div>
     </div>

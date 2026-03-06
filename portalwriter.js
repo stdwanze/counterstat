@@ -1,6 +1,6 @@
 
 const { getPower } = require('./sungrow');
-const { writePV, writePVEnergy, writeGridEnergy } = require('./influxapi.js');
+const { writePV, writePVEnergy, writeGridEnergy, getOutsideTemperature } = require('./influxapi.js');
 var axios = require('axios');
 const dtu = require('./hoyemiles');
 const car = require('./car');
@@ -12,7 +12,6 @@ dtu.init(config.dtuurl);
 car.setup(config.car);
 
 function refresh(){
-function refresh2(){
     var html = io.readPlain("./refreshtemplate.html").toString();
     io.writePlain(html,"./public/portal.html")
 
@@ -59,6 +58,8 @@ async function  doIt(){
         });
 
          console.log("got Performance: " + new Date());
+        // load outside temperature
+        let outsideTemp = await getOutsideTemperature();
         let h = {}; h.Power = {}; h.Power.v = -1;
         // load sungrow
         let r =  performace.data.sungrowRaw;//await getPower();
@@ -137,6 +138,7 @@ async function  doIt(){
         let sum = performace.data.ownConsumption + performace.data.delivered;
         html = html.replace('{sum}', minLengthReturn(sum.toFixed(1),0));
         
+        html = html.replace('{OutsideTemp}', outsideTemp);
         html = html.replace('{DateTime}',  new Date().toLocaleString());
         html = html.replace('{consumption}', minLengthReturn(performace.data.totalConsumption.toFixed(1),0));
         html = html.replace('{autarchy}', minLengthReturn(performace.data.autarchy.toFixed(1),0));
