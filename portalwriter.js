@@ -144,6 +144,7 @@ async function  doIt(){
         html = html.replace('{DateTime}',  new Date().toLocaleString());
         html = html.replace('{consumption}', minLengthReturn(performace.data.totalConsumption.toFixed(1),0));
         html = html.replace('{autarchy}', minLengthReturn(performace.data.autarchy.toFixed(1),0));
+        html = html.replace('{grid}', minLengthReturn(performace.data.grid.toFixed(1),0));
         html = html.replace('{ownuse}', minLengthReturn(performace.data.ownConsumption.toFixed(1),0));
         html = html.replace('{deliver}', minLengthReturn(performace.data.delivered.toFixed(1),0));
         
