@@ -7,85 +7,72 @@
     </head>
 
     <body>
-        <!-- Header Section -->
-        <div class="header">
-            <div class="header-left">{DateTime}</div>
-            <div class="header-center">Outside: {OutsideTemp}&deg;C</div>
-            <div class="header-right">
-                Car: {SoC}% | {Range}km
-            </div>
-        </div>
+        <table class="main-table">
+            <!-- Header Row -->
+            <tr>
+                <td class="header-cell-left">{DateTime}</td>
+                <td class="header-cell-center">Outside: {OutsideTemp}&deg;C</td>
+                <td class="header-cell-right">Car: {SoC}% | {Range}km</td>
+            </tr>
+        </table>
 
-        <!-- Main Power Panel -->
-        <div class="power-panel">
-            <div class="power-column">
-                <div class="power-value">PV</div>
-                <div class="power-number">{PVSUM}</div>
-                <div class="power-unit">W</div>
-                <div class="power-details">
-                    <span class="detail-row">■ N: {PVNorth}W</span>
-                    <span class="detail-row">■ S: {PVSouth}W</span>
-                    <span class="detail-row">■ G: {PVGarage}W</span>
-                </div>
-            </div>
+        <table class="power-table">
+            <tr>
+                <td class="power-cell">
+                    <div class="power-label">PV</div>
+                    <div class="power-number">{PVSUM}</div>
+                    <div class="power-unit">W</div>
+                    <div class="power-subtext">N: {PVNorth}W<br>S: {PVSouth}W<br>G: {PVGarage}W</div>
+                </td>
+                <td class="power-cell">
+                    <div class="power-label">goE</div>
+                    <div class="power-number">{Charge}</div>
+                    <div class="power-unit">W</div>
+                    <div class="power-subtext">Next: {Next}<br>Chg: {charged}kWh</div>
+                </td>
+                <td class="power-cell">
+                    <div class="power-label">Grid</div>
+                    <div class="power-number">{overflow}</div>
+                    <div class="power-unit">W</div>
+                </td>
+            </tr>
+        </table>
 
-            <div class="power-column">
-                <div class="power-value">goE</div>
-                <div class="power-number">{Charge}</div>
-                <div class="power-unit">W</div>
-                <div class="power-details">
-                    <span class="detail-row">■ Next: {Next}</span>
-                    <span class="detail-row">■ Charged: {charged}kWh</span>
-                </div>
-            </div>
-
-            <div class="power-column">
-                <div class="power-value">Grid</div>
-                <div class="power-number">{overflow}</div>
-                <div class="power-unit">W</div>
-                <div class="power-details">
-                    <span class="detail-row">■ Export/Import</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Energy Metrics Panel -->
-        <div class="metrics-panel">
-            <div class="metrics-row">
-                <div class="metric-cell">
+        <table class="metrics-table">
+            <tr>
+                <td class="metric-cell">
                     <div class="metric-label">Energy</div>
-                    <div class="metric-value">{sum}</div>
+                    <div class="metric-number">{sum}</div>
                     <div class="metric-unit">kWh</div>
-                </div>
-                <div class="metric-cell">
+                </td>
+                <td class="metric-cell">
                     <div class="metric-label">Autarchy</div>
-                    <div class="metric-value">{autarchy}</div>
+                    <div class="metric-number">{autarchy}</div>
                     <div class="metric-unit">%</div>
-                </div>
-                <div class="metric-cell">
-                    <div class="metric-label">Bat Temp</div>
-                    <div class="metric-value">{Temp}</div>
+                </td>
+                <td class="metric-cell">
+                    <div class="metric-label">Bat</div>
+                    <div class="metric-number">{Temp}</div>
                     <div class="metric-unit">&deg;C</div>
-                </div>
-            </div>
-
-            <div class="metrics-row">
-                <div class="metric-cell">
+                </td>
+            </tr>
+            <tr>
+                <td class="metric-cell">
                     <div class="metric-label">Consumed</div>
-                    <div class="metric-value">{consumption}</div>
+                    <div class="metric-number">{consumption}</div>
                     <div class="metric-unit">kWh</div>
-                </div>
-                <div class="metric-cell">
+                </td>
+                <td class="metric-cell">
                     <div class="metric-label">Own Use</div>
-                    <div class="metric-value">{ownuse}</div>
+                    <div class="metric-number">{ownuse}</div>
                     <div class="metric-unit">kWh</div>
-                </div>
-                <div class="metric-cell">
+                </td>
+                <td class="metric-cell">
                     <div class="metric-label">Delivered</div>
-                    <div class="metric-value">{deliver}</div>
+                    <div class="metric-number">{deliver}</div>
                     <div class="metric-unit">kWh</div>
-                </div>
-            </div>
-        </div>
+                </td>
+            </tr>
+        </table>
     </body>
 </html>
