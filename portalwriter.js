@@ -12,6 +12,7 @@ dtu.init(config.dtuurl);
 car.setup(config.car);
 
 function refresh(){
+function refresh2(){
     var html = io.readPlain("./refreshtemplate.html").toString();
     io.writePlain(html,"./public/portal.html")
 

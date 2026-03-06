@@ -41,6 +41,7 @@ polka()
         res.end(JSON.stringify(store.getRecords()));
     })
     .get("/currDayPerformance", async (req, res) => {
+        
         store.init(config.storeFileName);
         let counter = await axios({
             method: 'get',
@@ -123,6 +124,11 @@ polka()
 
 
     .listen(5000, err => {
-        if (err) throw err;
+        if (err) {
+        
+            console.error('Fehler beim Starten des Servers:', err);
+            process.exit(1); // Beende den Prozess mit Fehlercode
+
+        }
         console.log(`> Running on localhost:5000`);
     });

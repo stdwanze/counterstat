@@ -23,11 +23,11 @@
     border: 1px;
 }
 .time {
-    font-size: xx-large;
+    font-size: x-large;
 }
 .nested{
    
-    font-size: x-large;
+    font-size: 22px;
 }
 .element{
     display: inline-table;
@@ -38,6 +38,9 @@
   
 
 }
+.floatright{
+    float: right;
+}   
 .row:after {
     content: "";
     display: table;

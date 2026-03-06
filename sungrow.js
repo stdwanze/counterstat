@@ -1,12 +1,14 @@
 const { WebSocket } = require("ws");
 let semaphore = false;
+let lastres = null;
 async function getPower(){
     try{
     
-    if(semaphore) return null;
+    if(semaphore) return lastres;
     semaphore = true;
     
     let res = await getPowerinternal();
+    lastres = res;
     console.log(res);
 
     semaphore = false;
@@ -23,10 +25,14 @@ async function getPower(){
 function getPowerinternal(){
 
     const promise = new Promise( (resolve, reject) =>{
-        let result = {};
-        const wss = new WebSocket("wss://192.168.1.214/ws/home/overview",{rejectUnauthorized: false});
+        try {
+            let result = {};
+        const wss = new WebSocket("wss://192.168.1.85/ws/home/overview",{rejectUnauthorized: false});
                                    
-        wss.on('error', console.error);
+        wss.on('error', (err) => {
+            console.error('WebSocket error:', err);
+            resolve({});
+        });
         wss.on('open', function open() {
           wss.send( JSON.stringify({lang: "de", token: "", service: "connect"}));
         });
@@ -115,6 +121,11 @@ function getPowerinternal(){
             
             
         });
+        }
+        catch(e){
+            resolve({});
+        }
+       
         
 
     });
