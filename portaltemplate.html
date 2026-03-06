@@ -1,5 +1,6 @@
 <html>
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="styles.css">
         <meta http-equiv="refresh" content="40">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
 
     <body>
         <div class="tempbanner">
-            <span class="temptext">Outside: {OutsideTemp}°C</span>
+            <span class="temptext">Outside: {OutsideTemp}&deg;C</span>
         </div>
         <div class="rahmen">
         <div id="pv" class="module">
@@ -42,9 +43,9 @@
         <div id="car" class="module floatright">
             <span class="big element">Hnsi: <font size='10'>{carState}</font> </span>
             <div class="nested">
-                <span class="small element"> SoC </br>{SoC}%</span>
-                <span class="small element"> Range </br>{Range}km</span>
-                <span class="small element"> Bat </br>{Temp}°C</span>
+                <span class="small element"> SoC </br>{SoC} </br>%</span>
+                <span class="small element"> Range </br>{Range} </br>km</span>
+                <span class="small element"> Tb </br>{Temp} </br>&deg;C</span>
             </div>
         </div>
     </div>
