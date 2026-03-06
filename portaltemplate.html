@@ -7,47 +7,85 @@
     </head>
 
     <body>
-        <div class="tempbanner">
-            <span class="temptext">Outside: {OutsideTemp}&deg;C</span>
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-left">{DateTime}</div>
+            <div class="header-center">Outside: {OutsideTemp}&deg;C</div>
+            <div class="header-right">
+                Car: {SoC}% | {Range}km
+            </div>
         </div>
-        <div class="rahmen">
-        <div id="pv" class="module">
-            <span class="big element" >PV {PVSUM} W</span>
-            <div class="nested">
-                <span class="small element"> NO </br>{PVNorth} </br>W</span>
 
-                <span class="small element"> SW </br>{PVSouth} </br>W</span>
-                <span class="small element">GA </br>{PVGarage} </br>W</span>
+        <!-- Main Power Panel -->
+        <div class="power-panel">
+            <div class="power-column">
+                <div class="power-value">PV</div>
+                <div class="power-number">{PVSUM}</div>
+                <div class="power-unit">W</div>
+                <div class="power-details">
+                    <span class="detail-row">■ N: {PVNorth}W</span>
+                    <span class="detail-row">■ S: {PVSouth}W</span>
+                    <span class="detail-row">■ G: {PVGarage}W</span>
+                </div>
             </div>
-        </div>
-        <div id="charger" class="module floatright">
-            <span class="big element">goE: {Charge} W</span>
-            <div class="nested">
-                <span class="small element">+1</br>{Next} </span>
 
-                <span class="small element">+kWh</br>{charged}</span>
+            <div class="power-column">
+                <div class="power-value">goE</div>
+                <div class="power-number">{Charge}</div>
+                <div class="power-unit">W</div>
+                <div class="power-details">
+                    <span class="detail-row">■ Next: {Next}</span>
+                    <span class="detail-row">■ Charged: {charged}kWh</span>
+                </div>
+            </div>
+
+            <div class="power-column">
+                <div class="power-value">Grid</div>
+                <div class="power-number">{overflow}</div>
+                <div class="power-unit">W</div>
+                <div class="power-details">
+                    <span class="detail-row">■ Export/Import</span>
+                </div>
             </div>
         </div>
-        <div id="overflow" class="module">
-            <span class="big element">Grid: {overflow} W</span>
-            <span class="time element"> {DateTime} </span>
-            
-            <div class="nested">
-                <span class="small element"> pv {sum} ({energy}/{dtu})</span>
-                <span class="small element"> tl/aut {consumption} / {autarchy}%</span>
-                <span class="small element"> pu/po {ownuse} / {deliver}</span>
-                
-                
+
+        <!-- Energy Metrics Panel -->
+        <div class="metrics-panel">
+            <div class="metrics-row">
+                <div class="metric-cell">
+                    <div class="metric-label">Energy</div>
+                    <div class="metric-value">{sum}</div>
+                    <div class="metric-unit">kWh</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Autarchy</div>
+                    <div class="metric-value">{autarchy}</div>
+                    <div class="metric-unit">%</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Bat Temp</div>
+                    <div class="metric-value">{Temp}</div>
+                    <div class="metric-unit">&deg;C</div>
+                </div>
+            </div>
+
+            <div class="metrics-row">
+                <div class="metric-cell">
+                    <div class="metric-label">Consumed</div>
+                    <div class="metric-value">{consumption}</div>
+                    <div class="metric-unit">kWh</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Own Use</div>
+                    <div class="metric-value">{ownuse}</div>
+                    <div class="metric-unit">kWh</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-label">Delivered</div>
+                    <div class="metric-value">{deliver}</div>
+                    <div class="metric-unit">kWh</div>
+                </div>
             </div>
         </div>
-        <div id="car" class="module floatright">
-            <span class="big element">Hnsi: <font size='10'>{carState}</font> </span>
-            <div class="nested">
-                <span class="small element"> SoC </br>{SoC} </br>%</span>
-                <span class="small element"> Range </br>{Range} </br>km</span>
-                <span class="small element"> Tb </br>{Temp} </br>&deg;C</span>
-            </div>
-        </div>
-    </div>
     </body>
 </html>
