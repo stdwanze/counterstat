@@ -135,5 +135,24 @@ async function getOutsideTemperature() {
     }
 }
 
-module.exports = { writePV, writePVEnergy, writeGridEnergy, writeCharger, getOutsideTemperature };
+async function getHeatpumpData() {
+    try {
+        const result = await influx.query(
+            `select mean("Heisswasser") as heisswasser, mean("HeizungsPuffer") as heizungpuffer, mean("VerdichterLeistung") as verdichterleistung from "powerdata"."autogen"."Heatpump" where time > now() - 1h limit 1`
+        );
+        if (result && result.length > 0 && result[0]) {
+            return {
+                heisswasser: (result[0].heisswasser || 0).toFixed(1),
+                heizungpuffer: (result[0].heizungpuffer || 0).toFixed(1),
+                verdichterleistung: (result[0].verdichterleistung || 0).toFixed(0)
+            };
+        }
+        return { heisswasser: 'N/A', heizungpuffer: 'N/A', verdichterleistung: 'N/A' };
+    } catch (err) {
+        console.error('Heatpump query error:', err);
+        return { heisswasser: 'N/A', heizungpuffer: 'N/A', verdichterleistung: 'N/A' };
+    }
+}
+
+module.exports = { writePV, writePVEnergy, writeGridEnergy, writeCharger, getOutsideTemperature, getHeatpumpData };
 

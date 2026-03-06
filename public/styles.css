@@ -1,139 +1,183 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
 }
 
 body {
-    font-family: 'Courier New', monospace;
+    font-family: Arial, sans-serif;
     background-color: white;
     color: black;
-    font-size: 16px;
-    line-height: 1.2;
+    font-size: 12px;
+    display: table;
+} 
+
+/* Main Table for Layout */
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* Header Section - Fixed at top */
-.header {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    padding: 8px 12px;
+/* Header Table */
+.main-table {
     border: 2px solid black;
     border-bottom: 3px solid black;
-    background-color: white;
+    display: table-row;
+    height: 40px;
+}
+
+.header-cell-left,
+.header-cell-center,
+.header-cell-right {
+    border-right: 1px solid black;
+    padding: 4px;
     text-align: center;
     font-weight: bold;
+    vertical-align: middle;
+    display: table-cell;
 }
 
-.header-left {
-    font-size: 20px;
+.header-cell-left {
     text-align: left;
-    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    width: 25%;
 }
 
-.header-center {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.header-right {
+.header-cell-center {
     font-size: 18px;
-    text-align: right;
+    border-right: 1px solid black;
+    width: 50%;
 }
 
-/* Main Power Panel */
-.power-panel {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
-    padding: 8px 12px;
+.header-cell-right {
+    text-align: right;
+    font-size: 14px;
+    border-right: none;
+    width: 25%;
+}
+
+/* Power Table */
+.power-table {
     border: 2px solid black;
     border-bottom: 3px solid black;
     margin-top: 0;
+    display: table-row;
+    height: 100px;
 }
 
-.power-column {
-    border: 1px solid black;
-    padding: 8px;
+.power-table tr {
+    display: table-row;
+    height: 100px;
+}
+
+.power-cell {
+    width: 33.33%;
+    border-right: 1px solid black;
+    padding: 4px;
     text-align: center;
-    background-color: white;
+    vertical-align: top;
+    display: table-cell;
 }
 
-.power-value {
-    font-size: 16px;
+.power-cell:last-child {
+    border-right: none;
+}
+
+.power-label {
+    font-size: 13px;
     font-weight: bold;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .power-number {
-    font-size: 48px;
+    font-size: 40px;
     font-weight: bold;
-    font-family: 'Courier New', monospace;
+    font-family: Arial, sans-serif;
     line-height: 1;
-    margin: 4px 0;
+    margin: 1px 0;
 }
 
 .power-unit {
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 11px;
     font-weight: bold;
+    margin-bottom: 2px;
 }
 
-.power-details {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    font-size: 14px;
+.power-subtext {
+    font-size: 15px;
     border-top: 1px solid black;
-    padding-top: 4px;
-}
-
-.detail-row {
+    padding-top: 2px;
+    margin-top: 2px;
     text-align: left;
     line-height: 1.3;
 }
 
-/* Energy Metrics Panel */
-.metrics-panel {
-    padding: 8px 12px;
+/* Metrics Table */
+.metrics-table {
     border: 2px solid black;
     border-top: 3px solid black;
+    display: table;
+    height: 70%;
+    width: 100%;
 }
 
-.metrics-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
-    margin-bottom: 2px;
+.metrics-table tbody {
+    display: table-row-group;
+    height: 100%;
 }
 
-.metrics-row:last-child {
-    margin-bottom: 0;
+.metrics-table tr {
+    display: table-row;
+    height: 50%;
+    vertical-align: middle;
 }
 
 .metric-cell {
-    border: 1px solid black;
+    width: 33.33%;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
     padding: 6px 4px;
     text-align: center;
-    background-color: white;
+    vertical-align: middle;
+    display: table-cell;
+    height: 50%;
+}
+
+.metrics-table tr:last-child .metric-cell {
+    border-bottom: none;
+}
+
+.metric-cell:last-child {
+    border-right: none;
 }
 
 .metric-label {
-    font-size: 12px;
+    font-size: 21px;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 2px;
 }
 
-.metric-value {
-    font-size: 28px;
+.metric-number {
+    font-size: 30px;
     font-weight: bold;
-    font-family: 'Courier New', monospace;
+    font-family: Arial, sans-serif;
     line-height: 1;
     margin: 2px 0;
 }
 
 .metric-unit {
-    font-size: 12px;
+    font-size: 15px;
     font-weight: bold;
+}
+
+.metric-subtext {
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 2px;
 }

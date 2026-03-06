@@ -1,6 +1,6 @@
 
 const { getPower } = require('./sungrow');
-const { writePV, writePVEnergy, writeGridEnergy, getOutsideTemperature } = require('./influxapi.js');
+const { writePV, writePVEnergy, writeGridEnergy, getOutsideTemperature, getHeatpumpData } = require('./influxapi.js');
 var axios = require('axios');
 const dtu = require('./hoyemiles');
 const car = require('./car');
@@ -60,6 +60,8 @@ async function  doIt(){
          console.log("got Performance: " + new Date());
         // load outside temperature
         let outsideTemp = await getOutsideTemperature();
+        // load heatpump data
+        let heatpumpData = await getHeatpumpData();
         let h = {}; h.Power = {}; h.Power.v = -1;
         // load sungrow
         let r =  performace.data.sungrowRaw;//await getPower();
@@ -149,6 +151,11 @@ async function  doIt(){
         html = html.replace('{SoC}', lastCar.soc);
         html = html.replace('{Range}',lastCar.range);
         html = html.replace('{Temp}',lastCar.batTemp);
+        
+        // Heatpump data
+        html = html.replace('{Heisswasser}', heatpumpData.heisswasser);
+        html = html.replace('{Heizungpuffer}', heatpumpData.heizungpuffer);
+        html = html.replace('{Verdichterleistung}', heatpumpData.verdichterleistung);
         
       
 
