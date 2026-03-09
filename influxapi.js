@@ -159,7 +159,7 @@ async function getCompressorStatus() {
         const result = await influx.query(
             `select "VerdichterLeistung" from "powerdata"."autogen"."Heatpump" where time > now() - 5m order by time desc limit 1`
         );
-        if (result && result.length > 0 && result[0] && result[0].length > 0) {
+        if (result && result.length > 0 && result[0] ) {
             const value = result[0].VerdichterLeistung;
             const isRunning = value > 0;
             return {
