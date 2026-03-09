@@ -1,6 +1,6 @@
 
 const { getPower } = require('./sungrow');
-const { writePV, writePVEnergy, writeGridEnergy, getOutsideTemperature, getHeatpumpData } = require('./influxapi.js');
+const { writePV, writePVEnergy, writeGridEnergy, getOutsideTemperature, getHeatpumpData, getCompressorStatus } = require('./influxapi.js');
 var axios = require('axios');
 const dtu = require('./hoyemiles');
 const car = require('./car');
@@ -62,6 +62,8 @@ async function  doIt(){
         let outsideTemp = await getOutsideTemperature();
         // load heatpump data
         let heatpumpData = await getHeatpumpData();
+        // load compressor status
+        let compressorStatus = await getCompressorStatus();
         let h = {}; h.Power = {}; h.Power.v = -1;
         // load sungrow
         let r =  performace.data.sungrowRaw;//await getPower();
@@ -157,6 +159,10 @@ async function  doIt(){
         html = html.replace('{Heisswasser}', heatpumpData.heisswasser);
         html = html.replace('{Heizungpuffer}', heatpumpData.heizungpuffer);
         html = html.replace('{Verdichterleistung}', heatpumpData.verdichterleistung);
+        
+        // Compressor status
+        html = html.replace('{CompressorStatus}', compressorStatus.status);
+        html = html.replace('{CompressorValue}', compressorStatus.value);
         
       
 

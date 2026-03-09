@@ -138,7 +138,7 @@ async function getOutsideTemperature() {
 async function getHeatpumpData() {
     try {
         const result = await influx.query(
-            `select mean("Heisswasser") as heisswasser, mean("HeizungsPuffer") as heizungpuffer, mean("VerdichterLeistung") as verdichterleistung from "powerdata"."autogen"."Heatpump" where time > now() - 1h limit 1`
+            `select mean("Heisswasser") as heisswasser, mean("HeizungsPuffer") as heizungpuffer, mean("VerdichterLeistung") as verdichterleistung from "powerdata"."autogen"."Heatpump" where time > now() - 10m limit 1`
         );
         if (result && result.length > 0 && result[0]) {
             return {
@@ -154,5 +154,26 @@ async function getHeatpumpData() {
     }
 }
 
-module.exports = { writePV, writePVEnergy, writeGridEnergy, writeCharger, getOutsideTemperature, getHeatpumpData };
+async function getCompressorStatus() {
+    try {
+        const result = await influx.query(
+            `select "VerdichterLeistung" from "powerdata"."autogen"."Heatpump" where time > now() - 5m order by time desc limit 1`
+        );
+        if (result && result.length > 0 && result[0] && result[0].length > 0) {
+            const value = result[0][0].VerdichterLeistung;
+            const isRunning = value > 0;
+            return {
+                isRunning: isRunning,
+                value: value.toFixed(0),
+                status: isRunning ? '●' : '○'
+            };
+        }
+        return { isRunning: false, value: 'N/A', status: '○' };
+    } catch (err) {
+        console.error('Compressor status query error:', err);
+        return { isRunning: false, value: 'N/A', status: '○' };
+    }
+}
+
+module.exports = { writePV, writePVEnergy, writeGridEnergy, writeCharger, getOutsideTemperature, getHeatpumpData, getCompressorStatus };
 
