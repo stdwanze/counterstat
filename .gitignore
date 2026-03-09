@@ -1,2 +1,12 @@
 config/default.json
 node_modules/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+dist/
+build/
+coverage/
+.jest_cache/
+__tests__/**/*.local.js

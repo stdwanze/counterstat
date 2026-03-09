@@ -1,24 +1,28 @@
 {
   "name": "counterstat",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Real-time energy monitoring and solar charging control system",
+  "main": "counterserver.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node counterserver.js",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.5.0",
     "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
     "influx": "^5.11.0",
     "polka": "^0.5.2",
     "serve-static": "^1.15.0",
     "websocket": "^1.0.34",
     "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
-  
-
-  
-
 }
+
