@@ -11,6 +11,44 @@ var config = require('./config').config();
 dtu.init(config.dtuurl);
 car.setup(config.car);
 
+function formatChargerNextStatus(chargerResult) {
+    if (!chargerResult) return '-- --';
+    
+    // Check if charging is stopped
+    if (chargerResult.commandStop === true) {
+        return '⊘';
+    }
+    
+    // Extract phases and amps from charger result
+    let phases = chargerResult.threePhase ? 3 : 1;
+    let amps = 0;
+    
+    // Parse amps from result string (e.g., "amp:16,psm:1,...")
+    if (chargerResult.chargersetting) {
+        const ampMatch = chargerResult.chargersetting.match(/amp:(\d+)/);
+        if (ampMatch) {
+            amps = parseInt(ampMatch[1]);
+        }
+    }
+    
+    // Create phase indicator
+    let phaseIndicator = phases === 3 ? '●●●' : '●';
+    
+    // Create ampere indicator based on amps (stages: 6A=1dash, 10A=2dash, 12A=3dash, 14A=4dash, 16A=5dash)
+    let ampDashes = 0;
+    switch(amps) {
+        case 6: ampDashes = 1; break;
+        case 10: ampDashes = 2; break;
+        case 12: ampDashes = 3; break;
+        case 14: ampDashes = 4; break;
+        case 16: ampDashes = 5; break;
+        default: ampDashes = 0;
+    }
+    let ampIndicator = '-'.repeat(ampDashes);
+    
+    return phaseIndicator + ' ' + ampIndicator;
+}
+
 function refresh(){
     var html = io.readPlain("./refreshtemplate.html").toString();
     io.writePlain(html,"./public/portal.html")
@@ -97,7 +135,9 @@ async function  doIt(){
         content.threephase = content.result != null? content.result.threePhase : false;
         content.overflow = content.charger != null?  (content.export == true? (content.overflow-content.load)*-1 : content.overflow) : content.overflow; 
         content.charged = content.charged;
-
+        
+        // Format charger next status with ASCII art
+        let chargerNextFormatted = formatChargerNextStatus(content.result);
   
 
         //load car
@@ -132,7 +172,7 @@ async function  doIt(){
         html = html.replace('{PVGarage}', strings.StringGarage.toFixed(0));
         
         html = html.replace('{Charge}', minLengthReturn(content.load.toFixed(0),4));
-        html = html.replace('{Next}', content.next);
+        html = html.replace('{Next}', chargerNextFormatted);
         html = html.replace('{charged}', content.charged);
         
         html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),0));
