@@ -14,21 +14,26 @@ car.setup(config.car);
 function formatChargerNextStatus(chargerResult) {
     if (!chargerResult) return '-- --';
     
-    // Check if charging is stopped
-    if (chargerResult.commandStop === true) {
-        return '⊘';
-    }
-    
     // Extract phases and amps from charger result
     let phases = chargerResult.threePhase ? 3 : 1;
     let amps = 0;
+    let chargeStoped = 0;
     
-    // Parse amps from result string (e.g., "amp:16,psm:1,...")
+    // Parse amps and stopped status from result string (e.g., "amp:16,psm:1,chargeStoped:1")
     if (chargerResult.chargersetting) {
         const ampMatch = chargerResult.chargersetting.match(/amp:(\d+)/);
         if (ampMatch) {
             amps = parseInt(ampMatch[1]);
         }
+        const stopMatch = chargerResult.chargersetting.match(/chargeStoped:(\d+)/);
+        if (stopMatch) {
+            chargeStoped = parseInt(stopMatch[1]);
+        }
+    }
+    
+    // Return stop indicator if chargeStoped=1
+    if (chargeStoped === 1) {
+        return '⊘';
     }
     
     // Create phase indicator
