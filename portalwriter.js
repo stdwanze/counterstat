@@ -15,7 +15,7 @@ function formatChargerNextStatus(chargerResult) {
     if (!chargerResult) return '-- --';
     
     // Check if charging is stopped
-    if (chargerResult.commandStop == 1) {
+    if (chargerResult.commandStop == true) {
         return '⊘';
     }
     
