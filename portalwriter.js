@@ -18,7 +18,7 @@ function formatChargerNextStatus(chargerResult) {
     if (chargerResult.chargersetting) {
         const stopMatch = chargerResult.chargersetting.match(/chargeStoped:(\d+)/);
         if (stopMatch && stopMatch[1] === '1') {
-            return '⊘';
+            return '[X]';
         }
     }
     
