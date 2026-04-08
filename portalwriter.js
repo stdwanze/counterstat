@@ -58,11 +58,24 @@ function refresh(){
 
 
 }
-function setChart(){
+async function setChart(){
     var html = io.readPlain("./charttemplate.html").toString();
-    io.writePlain(html,"./public/portal.html")
 
-    
+    try {
+        const response = await axios({
+            method: 'get',
+            url: 'http://192.168.1.164:3001/gridchart',
+            responseType: 'arraybuffer'
+        });
+        const contentType = response.headers['content-type'] || 'image/png';
+        const base64 = Buffer.from(response.data).toString('base64');
+        const dataUri = `data:${contentType};base64,${base64}`;
+        html = html.replace(/src="http:\/\/192\.168\.1\.164:3001\/gridchart"/, `src="${dataUri}"`);
+    } catch(e) {
+        console.log("Could not fetch chart image: " + e.message);
+    }
+
+    io.writePlain(html,"./public/portal.html");
 }
 
 
@@ -89,7 +102,7 @@ async function  doIt(){
             return;
         }
         if(isChartTime()) {
-            setChart();
+            await setChart();
             return;
         }
         // load performance
