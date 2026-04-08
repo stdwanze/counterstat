@@ -89,7 +89,7 @@ function isRefreshTime(){
 function isChartTime(){
     let m = new Date();
     let ret = false;
-    m.getMinutes() % 12 == 0 ?  ret= true: ret= false;
+    m.getMinutes() % 4 == 0 ?  ret= true: ret= false;
     return ret;
 }
 
