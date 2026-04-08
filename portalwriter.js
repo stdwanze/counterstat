@@ -76,6 +76,7 @@ async function setChart(){
     }
 
     io.writePlain(html,"./public/portal.html");
+    io.writePlain(html,"./public/chart.htm");
 }
 
 
