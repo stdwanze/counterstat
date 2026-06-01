@@ -8,7 +8,7 @@ function config(){
         lastset: "lastset.txt",
         activator: "activator",
         minuteReportFile: "minutereport.csv",
-        dtuurl: "http://192.168.1.106/",
+        dtuurl: "http://192.168.1.161/",
         cooldown: "cooldown",
         car: "http://192.168.1.160:3000/lastvalparsed",
         performance: "http://192.168.1.160:5000/currDayPerformance",
