@@ -9,6 +9,7 @@ var io = require('./io');
 
 var config = require('./config').config();
 dtu.init(config.dtuurl);
+car.setup(config.car);
 
 function formatChargerNextStatus(chargerResult) {
     if (!chargerResult) return '-- --';
@@ -158,7 +159,13 @@ async function  doIt(){
 
         //load car
         let lastCar = await car.load();
-        if(!lastCar) lastCar = {};
+        if(lastCar != null){
+            lastCar.batTemp = ((lastCar.battemplow + lastCar.battemphigh)/2).toFixed(1);
+        }
+        else {
+            lastCar = {};
+
+        }
         var html = io.readPlain("./portaltemplate.html").toString();
 
         function minLengthReturn(s,l){
@@ -200,9 +207,10 @@ async function  doIt(){
         html = html.replace('{ownuse}', minLengthReturn(performace.data.ownConsumption.toFixed(1),0));
         html = html.replace('{deliver}', minLengthReturn(performace.data.delivered.toFixed(1),0));
         
-        html = html.replace('{carState}', lastCar.status === "moving" ? "." : "");
-        html = html.replace('{SoC}', lastCar.level);
-        html = html.replace('{Range}', lastCar.range);
+        html = html.replace('{carState}', lastCar.state== "moving"? ".": "");
+        html = html.replace('{SoC}', lastCar.soc);
+        html = html.replace('{Range}',lastCar.range);
+        html = html.replace('{Temp}',lastCar.batTemp);
         
         // Heatpump data
         html = html.replace('{Heisswasser}', heatpumpData.heisswasser);
