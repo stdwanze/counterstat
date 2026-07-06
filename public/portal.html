@@ -1,34 +1,79 @@
 <html>
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="styles.css">
         <meta http-equiv="refresh" content="40">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
     <body>
-        <div class="rahmen">
-        <div id="pv" class="module">
-            <span class="big element" >PV {PVSUM} W</span>
-            <div class="nested">
-                <span class="small element"> NO {PVNorth} W</span>
+        <table class="main-table">
+            <!-- Header Row -->
+            <tr>
+                <td class="header-cell-left">3.6.2026, 13:45:02</td>
+                <td class="header-cell-center">Outside: 20.7&deg;C</td>
+                <td class="header-cell-right"> Car: 63% | 357km</td>
+            </tr>
+        </table>
 
-                <span class="small element"> SW {PVSouth} W</span>
-                <span class="small element">GA {PVGarage} W</span>
-            </div>
-        </div>
-        <div id="charger" class="module">
-            <span class="big element">goE: {Charge} W</span>
-            <div class="nested">
-                <span class="small element"> +1: {Next} </span>
+        <table class="power-table">
+            <tr>
+                <td class="power-cell">
+                    <div class="power-label">PV</div>
+                    <div class="power-number">7494</div>
+                    <div class="power-unit">W</div>
+                    <div class="power-subtext">N: 2836W<br>S: 3435W<br>G: 1224W</div>
+                </td>
+                <td class="power-cell">
+                    <div class="power-label">goE</div>
+                    <div class="power-number">1455</div>
+                    <div class="power-unit">W</div>
+                    <div class="power-subtext">Next: [X]<br>Chg: undefinedkWh</div>
+                </td>
+                <td class="power-cell">
+                    <div class="power-label">Grid</div>
+                    <div class="power-number">-392</div>
+                    <div class="power-unit">W</div>
+                </td>
+            </tr>
+        </table>
 
-                <span class="small element"> 3P {3p}</span>
-            </div>
-        </div>
-        <div id="overflow" class="module">
-            <span class="big element">Grid: {overflow} W</span>
-            <div class="nested">
-                
-            </div>
-        </div>
-    </div>
+        <table class="metrics-table">
+            <tr>
+                <td class="metric-cell">
+                    <div class="metric-label">Produced</div>
+                    <div class="metric-number">16.0</div>
+                    <div class="metric-unit">kWh</div>
+                    <div class="metric-subtext">SG: 13.4 kWh<br>G: 2.6 kWh</div>
+                </td>
+                <td class="metric-cell">
+                    <div class="metric-label">Autarchy</div>
+                    <div class="metric-number">78.9</div>
+                    <div class="metric-unit">%</div>
+                    <div class="metric-subtext">Import: 3.3 kWh</div>
+                </td>
+                <td class="metric-cell">
+                    <div class="metric-label">Heatpump</div>
+                    <div class="metric-subtext">HW: 38.9&deg;C<br>HP: 24.4&deg;C<br>○ 0%</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="metric-cell">
+                    <div class="metric-label">Consumed</div>
+                    <div class="metric-number">15.8</div>
+                    <div class="metric-unit">kWh</div>
+                </td>
+                <td class="metric-cell">
+                    <div class="metric-label">Own Use</div>
+                    <div class="metric-number">12.5</div>
+                    <div class="metric-unit">kWh</div>
+                </td>
+                <td class="metric-cell">
+                    <div class="metric-label">Delivered</div>
+                    <div class="metric-number">3.6</div>
+                    <div class="metric-unit">kWh</div>
+                </td>
+            </tr>
+        </table>
     </body>
 </html>

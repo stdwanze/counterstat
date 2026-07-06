@@ -1,0 +1,136 @@
+{
+    "d": {
+        "__metadata": {
+            "id": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')",
+            "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')",
+            "type": "xFUCHSxCP_C_CPREQUEST_GPM_CDS.xFUCHSxCP_C_CPREQUEST_GPMType"
+        },
+        "Chi_tra_ac": true,
+        "Crt_bck_ac": true,
+        "Rel_rej_ac": true,
+        "CommercialProductRequest": "0000000318",
+        "MasterGrade": "",
+        "RequestReason": "fg",
+        "ReleaseReason": "sda",
+        "KHTComment": "",
+        "RequestStatus": "TCH",
+        "ReplacedCommercialProduct": "CP1000022",
+        "req_affiliate": "BE10",
+        "RequesterUser": "DE7AF595-66A8-4DA7-8D48-89C2E8837447",
+        "RequesterName": "Alexandra Peric",
+        "RequesterEmail": "Alexandra.peric@ibsolution.com",
+        "NewCommercialProduct": "",
+        "ReceiverEmail": "mark.howe@fuchs.com",
+        "CreationDate": "\/Date(1702252800000)\/",
+        "CreationTime": "PT09H52M02S",
+        "CreationUser": "RFC_CLOUDCON",
+        "ChangeDate": "\/Date(1702252800000)\/",
+        "CommercialProductName": "sda",
+        "ChangeTime": "PT09H55M43S",
+        "ChangeUser": "RFC_CLOUDCON",
+        "Timestamp": "\/Date(1702284943763+0000)\/",
+        "brand_id": "LEAD_PRODUCT_BRAND#AGRIFARM",
+        "brand_free_text": "",
+        "quality_position": "",
+        "product_range": "GENERAL LUBRICATION",
+        "china_trans_req": false,
+        "food_grade": false,
+        "food_grade_reg": "",
+        "nsf_reg_num": "",
+        "food_grade_add_reg": "",
+        "food_grade_kosher": false,
+        "food_grade_halal": false,
+        "drinking_water_app": false,
+        "biodegradable": false,
+        "cp_name_china": "",
+        "baseoil_id": "",
+        "prod_cat": "01-001-001-003",
+        "ma_act": false,
+        "ma_fuchs_spec_app": false,
+        "ma_new_mob": "",
+        "is_hawa": true,
+        "CommercialProductVersion": "",
+        "ProductType": "PRIVATE LABEL",
+        "ProductLine": "01-001-001-003",
+        "cp_grade": "",
+        "to_Affiliate": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_Affiliate"
+            }
+        },
+        "to_BaseOil": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_BaseOil"
+            }
+        },
+        "to_Brand": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_Brand"
+            }
+        },
+        "to_FoodGradeAddReg": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_FoodGradeAddReg"
+            }
+        },
+        "to_FoodGradeReg": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_FoodGradeReg"
+            }
+        },
+        "to_Grade": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_Grade"
+            }
+        },
+        "to_MasterGrade": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_MasterGrade"
+            }
+        },
+        "to_MA_NEW_MOB": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_MA_NEW_MOB"
+            }
+        },
+        "to_NewCommercialProduct": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_NewCommercialProduct"
+            }
+        },
+        "to_ProductLine": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_ProductLine"
+            }
+        },
+        "to_ProductRange": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_ProductRange"
+            }
+        },
+        "to_ProductType": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_ProductType"
+            }
+        },
+        "to_QualityPosition": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_QualityPosition"
+            }
+        },
+        "to_ReplacedCommercialProduct": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_ReplacedCommercialProduct"
+            }
+        },
+        "to_RequestStatus": {
+            "__deferred": {
+                "uri": "https://ccdvsba.virtual:8000/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM('0000000318')/to_RequestStatus"
+            }
+        }
+    }
+}
+
+curl -v -i "MDM_PRINCIPAL_PROP.dest/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM?$skip=0&$top=2&$orderby=CommercialProductRequest%20desc&$filter=ProductLine%20eq%20%2701-001-001-003%27" -H "Accept: application/json" 
+
+curl -v -i "MDM_PRINCIPAL_PROP.dest/sap/opu/odata/fuchs/CP_C_CPREQUEST_GPM_CDS/xFUCHSxCP_C_CPREQUEST_GPM?$skip=0&$top=2&$select=CommercialProductRequest" -H "Accept: application/json" 

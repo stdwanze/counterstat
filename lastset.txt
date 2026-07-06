@@ -1,1 +1,1 @@
-{"state":"did not run because not allowed"}
+{"export":true,"overflow":1846.666626,"date":"2024-04-18T15:51:26.892Z","charger":1454.666626,"result":{"chargersetting":"amp:6,psm:1,chargeStoped:1","commandStop":false,"woffset":0,"threePhase":false}}
