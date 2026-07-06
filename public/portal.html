@@ -1,18 +1,16 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="styles.css">
-        <meta http-equiv="refresh" content="40">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
     <body>
         <table class="main-table">
-            <!-- Header Row -->
             <tr>
-                <td class="header-cell-left">3.6.2026, 13:45:02</td>
-                <td class="header-cell-center">Outside: 20.7&deg;C</td>
-                <td class="header-cell-right"> Car: 63% | 357km</td>
+                <td class="header-cell-left"><span id="DateTime">--</span></td>
+                <td class="header-cell-center">Outside: <span id="OutsideTemp">--</span>&deg;C</td>
+                <td class="header-cell-right"><span id="carState"></span> Car: <span id="SoC">--</span>% | <span id="Range">--</span>km</td>
             </tr>
         </table>
 
@@ -20,60 +18,96 @@
             <tr>
                 <td class="power-cell">
                     <div class="power-label">PV</div>
-                    <div class="power-number">7494</div>
+                    <div class="power-number" id="PVSUM">--</div>
                     <div class="power-unit">W</div>
-                    <div class="power-subtext">N: 2836W<br>S: 3435W<br>G: 1224W</div>
+                    <div class="power-subtext">N: <span id="PVNorth">--</span>W<br>S: <span id="PVSouth">--</span>W<br>G: <span id="PVGarage">--</span>W</div>
                 </td>
                 <td class="power-cell">
                     <div class="power-label">goE</div>
-                    <div class="power-number">1455</div>
+                    <div class="power-number" id="Charge">--</div>
                     <div class="power-unit">W</div>
-                    <div class="power-subtext">Next: [X]<br>Chg: undefinedkWh</div>
+                    <div class="power-subtext">Next: <span id="Next">--</span><br>Chg: <span id="charged">--</span>kWh</div>
                 </td>
                 <td class="power-cell">
                     <div class="power-label">Grid</div>
-                    <div class="power-number">-392</div>
+                    <div class="power-number" id="overflow">--</div>
                     <div class="power-unit">W</div>
                 </td>
             </tr>
         </table>
 
         <table class="metrics-table">
+            <tbody>
             <tr>
                 <td class="metric-cell">
                     <div class="metric-label">Produced</div>
-                    <div class="metric-number">16.0</div>
+                    <div class="metric-number" id="sum">--</div>
                     <div class="metric-unit">kWh</div>
-                    <div class="metric-subtext">SG: 13.4 kWh<br>G: 2.6 kWh</div>
+                    <div class="metric-subtext">SG: <span id="energy">--</span> kWh<br>G: <span id="dtu">--</span> kWh</div>
                 </td>
                 <td class="metric-cell">
                     <div class="metric-label">Autarchy</div>
-                    <div class="metric-number">78.9</div>
+                    <div class="metric-number" id="autarchy">--</div>
                     <div class="metric-unit">%</div>
-                    <div class="metric-subtext">Import: 3.3 kWh</div>
+                    <div class="metric-subtext">Import: <span id="grid">--</span> kWh</div>
                 </td>
                 <td class="metric-cell">
                     <div class="metric-label">Heatpump</div>
-                    <div class="metric-subtext">HW: 38.9&deg;C<br>HP: 24.4&deg;C<br>○ 0%</div>
+                    <div class="metric-subtext">HW: <span id="Heisswasser">--</span>&deg;C<br>HP: <span id="Heizungpuffer">--</span>&deg;C<br><span id="CompressorStatus">--</span> <span id="CompressorValue">--</span>%</div>
                 </td>
             </tr>
             <tr>
                 <td class="metric-cell">
                     <div class="metric-label">Consumed</div>
-                    <div class="metric-number">15.8</div>
+                    <div class="metric-number" id="consumption">--</div>
                     <div class="metric-unit">kWh</div>
                 </td>
                 <td class="metric-cell">
                     <div class="metric-label">Own Use</div>
-                    <div class="metric-number">12.5</div>
+                    <div class="metric-number" id="ownuse">--</div>
                     <div class="metric-unit">kWh</div>
                 </td>
                 <td class="metric-cell">
                     <div class="metric-label">Delivered</div>
-                    <div class="metric-number">3.6</div>
+                    <div class="metric-number" id="deliver">--</div>
                     <div class="metric-unit">kWh</div>
                 </td>
             </tr>
+            </tbody>
         </table>
+
+        <script>
+        const FIELDS = [
+            "DateTime","OutsideTemp","carState","SoC","Range",
+            "PVSUM","PVNorth","PVSouth","PVGarage",
+            "Charge","Next","charged","overflow",
+            "energy","dtu","sum","autarchy","grid",
+            "consumption","ownuse","deliver",
+            "Heisswasser","Heizungpuffer","CompressorStatus","CompressorValue"
+        ];
+
+        function applyData(data) {
+            FIELDS.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && data[id] !== undefined) el.textContent = data[id];
+            });
+        }
+
+        async function fetchData() {
+            try {
+                const res = await fetch("./data.json?t=" + Date.now());
+                if (!res.ok) throw new Error(res.status);
+                const data = await res.json();
+                applyData(data);
+                document.body.classList.remove("stale");
+            } catch (e) {
+                document.body.classList.add("stale");
+                console.warn("fetch failed:", e);
+            }
+        }
+
+        fetchData();
+        setInterval(fetchData, 30000);
+        </script>
     </body>
 </html>

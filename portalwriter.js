@@ -166,70 +166,39 @@ async function  doIt(){
             lastCar = {};
 
         }
-        var html = io.readPlain("./portaltemplate.html").toString();
+        const data = {
+            DateTime: new Date().toLocaleString(),
+            OutsideTemp: outsideTemp,
+            carState: lastCar.state === "moving" ? "." : "",
+            SoC: lastCar.soc,
+            Range: lastCar.range,
+            PVSUM: strings.Total.toFixed(0),
+            PVNorth: strings.StringNorth.toFixed(0),
+            PVSouth: strings.StringSouth.toFixed(0),
+            PVGarage: strings.StringGarage.toFixed(0),
+            Charge: content.load.toFixed(0),
+            Next: chargerNextFormatted,
+            charged: content.charged,
+            overflow: content.overflow.toFixed(0),
+            energy: strings.Energy.toFixed(1),
+            dtu: strings.Dtu.toFixed(1),
+            sum: (performace.data.ownConsumption + performace.data.delivered).toFixed(1),
+            autarchy: performace.data.autarchy.toFixed(1),
+            grid: performace.data.grid.toFixed(1),
+            consumption: performace.data.totalConsumption.toFixed(1),
+            ownuse: performace.data.ownConsumption.toFixed(1),
+            deliver: performace.data.delivered.toFixed(1),
+            Heisswasser: heatpumpData.heisswasser,
+            Heizungpuffer: heatpumpData.heizungpuffer,
+            CompressorStatus: compressorStatus.status,
+            CompressorValue: compressorStatus.value
+        };
 
-        function minLengthReturn(s,l){
-
-            if(s.length < l){
-                let adds = "<font color='white'>";
-                for(i = s.length ; i < l; i++)
-                {
-                    adds+= "-";
-                }
-                adds += "</font>";
-                s = adds+s;
-            }
-            return s;
-        }
-
-
-        html = html.replace('{PVSUM}', minLengthReturn(strings.Total.toFixed(0),4));
-        html = html.replace('{PVNorth}',strings.StringNorth.toFixed(0));
-        html = html.replace('{PVSouth}', strings.StringSouth.toFixed(0));
-        html = html.replace('{PVGarage}', strings.StringGarage.toFixed(0));
-        
-        html = html.replace('{Charge}', minLengthReturn(content.load.toFixed(0),4));
-        html = html.replace('{Next}', chargerNextFormatted);
-        html = html.replace('{charged}', content.charged);
-        
-        html = html.replace('{overflow}', minLengthReturn(content.overflow.toFixed(0),0));
-        html = html.replace('{energy}', minLengthReturn(strings.Energy.toFixed(1),0));
-        html = html.replace('{dtu}', minLengthReturn(strings.Dtu.toFixed(1),0));
-
-        let sum = performace.data.ownConsumption + performace.data.delivered;
-        html = html.replace('{sum}', minLengthReturn(sum.toFixed(1),0));
-        
-        html = html.replace('{OutsideTemp}', outsideTemp);
-        html = html.replace('{DateTime}',  new Date().toLocaleString());
-        html = html.replace('{consumption}', minLengthReturn(performace.data.totalConsumption.toFixed(1),0));
-        html = html.replace('{autarchy}', minLengthReturn(performace.data.autarchy.toFixed(1),0));
-        html = html.replace('{grid}', minLengthReturn(performace.data.grid.toFixed(1),0));
-        html = html.replace('{ownuse}', minLengthReturn(performace.data.ownConsumption.toFixed(1),0));
-        html = html.replace('{deliver}', minLengthReturn(performace.data.delivered.toFixed(1),0));
-        
-        html = html.replace('{carState}', lastCar.state== "moving"? ".": "");
-        html = html.replace('{SoC}', lastCar.soc);
-        html = html.replace('{Range}',lastCar.range);
-        html = html.replace('{Temp}',lastCar.batTemp);
-        
-        // Heatpump data
-        html = html.replace('{Heisswasser}', heatpumpData.heisswasser);
-        html = html.replace('{Heizungpuffer}', heatpumpData.heizungpuffer);
-        html = html.replace('{Verdichterleistung}', heatpumpData.verdichterleistung);
-        
-        // Compressor status
-        html = html.replace('{CompressorStatus}', compressorStatus.status);
-        html = html.replace('{CompressorValue}', compressorStatus.value);
-        
-      
-
-
-        io.writePlain(html,"./public/portal.html")
+        io.writePlain(JSON.stringify(data, null, 2), "./public/data.json");
 
          console.log("end: " + new Date());
     }
-
-doIt();
+ doIt();
 
 // Export for testing
 module.exports = {
