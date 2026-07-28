@@ -192,7 +192,8 @@ async function  doIt(){
             mtdSum: mtd.produced,
             mtdConsumption: mtd.consumption,
             mtdOwnuse: mtd.ownuse,
-            mtdDeliver: mtd.delivered
+            mtdDeliver: mtd.delivered,
+            mtdImport: mtd.imported
         };
 
         io.writePlain(JSON.stringify(data, null, 2), "./public/data.json");

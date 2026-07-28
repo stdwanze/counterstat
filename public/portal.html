@@ -49,7 +49,7 @@
                     <div class="metric-label">Autarchy</div>
                     <div class="metric-number" id="autarchy">--</div>
                     <div class="metric-unit">%</div>
-                    <div class="metric-subtext">Import: <span id="grid">--</span> kWh</div>
+                    <div class="metric-subtext">Import: <span id="grid">--</span> kWh<br>MTD: <span id="mtdImport">--</span> kWh</div>
                 </td>
                 <td class="metric-cell">
                     <div class="metric-label">Heatpump</div>
@@ -87,7 +87,7 @@
             "energy","dtu","sum","autarchy","grid",
             "consumption","ownuse","deliver",
             "Heisswasser","Heizungpuffer","CompressorStatus","CompressorValue",
-            "mtdSum","mtdConsumption","mtdOwnuse","mtdDeliver"
+            "mtdSum","mtdConsumption","mtdOwnuse","mtdDeliver","mtdImport"
         ];
 
         function applyData(data) {
