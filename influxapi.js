@@ -5,7 +5,7 @@ var config = require('./config').config();
 let powerPw = config.powerPw;
 
 const influx = new Influx.InfluxDB({
-  host: '192.168.1.89',
+  host: '192.168.1.32',
   port: 8086,                 // Standardport
   database: 'powerdata',    // deine Datenbank
   username: 'loggerPwr',           // optional
@@ -175,5 +175,32 @@ async function getCompressorStatus() {
     }
 }
 
-module.exports = { writePV, writePVEnergy, writeGridEnergy, writeCharger, getOutsideTemperature, getHeatpumpData, getCompressorStatus };
+async function getMonthToDateEnergy() {
+    try {
+        const now = new Date();
+        const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+
+        const [rC, rO, rD] = await Promise.all([
+            influx.query(`SELECT SUM("max_val") AS total FROM (SELECT MAX("totalConsumption") AS "max_val" FROM "powerdata"."autogen"."GridEnergy" WHERE time >= '${monthStart}' AND time < now() AND totalConsumption <= 200 GROUP BY time(1d) FILL(null))`),
+            influx.query(`SELECT SUM("max_val") AS total FROM (SELECT MAX("ownConsumption") AS "max_val" FROM "powerdata"."autogen"."GridEnergy" WHERE time >= '${monthStart}' AND time < now() AND ownConsumption <= 200 GROUP BY time(1d) FILL(null))`),
+            influx.query(`SELECT SUM("max_val") AS total FROM (SELECT MAX("delivered") AS "max_val" FROM "powerdata"."autogen"."GridEnergy" WHERE time >= '${monthStart}' AND time < now() AND delivered <= 200 GROUP BY time(1d) FILL(null))`)
+        ]);
+
+        const consumption = (rC[0] && rC[0].total) || 0;
+        const ownuse      = (rO[0] && rO[0].total) || 0;
+        const delivered   = (rD[0] && rD[0].total) || 0;
+
+        return {
+            consumption: consumption.toFixed(1),
+            ownuse:      ownuse.toFixed(1),
+            delivered:   delivered.toFixed(1),
+            produced:    (ownuse + delivered).toFixed(1)
+        };
+    } catch (err) {
+        console.error('MTD query error:', err);
+        return { consumption: 'N/A', ownuse: 'N/A', delivered: 'N/A', produced: 'N/A' };
+    }
+}
+
+module.exports = { writePV, writePVEnergy, writeGridEnergy, writeCharger, getOutsideTemperature, getHeatpumpData, getCompressorStatus, getMonthToDateEnergy };
 

@@ -1,6 +1,6 @@
 
 const { getPower } = require('./sungrow');
-const { writePV, writePVEnergy, writeGridEnergy, getOutsideTemperature, getHeatpumpData, getCompressorStatus } = require('./influxapi.js');
+const { writePV, writePVEnergy, writeGridEnergy, getOutsideTemperature, getHeatpumpData, getCompressorStatus, getMonthToDateEnergy } = require('./influxapi.js');
 var axios = require('axios');
 const dtu = require('./hoyemiles');
 const car = require('./car');
@@ -53,10 +53,7 @@ function formatChargerNextStatus(chargerResult) {
 }
 
 function refresh(){
-    var html = io.readPlain("./refreshtemplate.html").toString();
-    io.writePlain(html,"./public/portal.html")
-
-
+    // no-op: portal.html is now static with JS polling
 }
 async function setChart(){
     var html = io.readPlain("./charttemplate.html").toString();
@@ -75,7 +72,6 @@ async function setChart(){
         console.log("Could not fetch chart image: " + e.message);
     }
 
-    io.writePlain(html,"./public/portal.html");
     io.writePlain(html,"./public/chart.htm");
 }
 
@@ -113,8 +109,9 @@ async function  doIt(){
         });
 
          console.log("got Performance: " + new Date());
-        // load outside temperature
+        // load outside temperature and MTD energy
         let outsideTemp = await getOutsideTemperature();
+        let mtd = await getMonthToDateEnergy();
         // load heatpump data
         let heatpumpData = await getHeatpumpData();
         // load compressor status
@@ -191,7 +188,11 @@ async function  doIt(){
             Heisswasser: heatpumpData.heisswasser,
             Heizungpuffer: heatpumpData.heizungpuffer,
             CompressorStatus: compressorStatus.status,
-            CompressorValue: compressorStatus.value
+            CompressorValue: compressorStatus.value,
+            mtdSum: mtd.produced,
+            mtdConsumption: mtd.consumption,
+            mtdOwnuse: mtd.ownuse,
+            mtdDeliver: mtd.delivered
         };
 
         io.writePlain(JSON.stringify(data, null, 2), "./public/data.json");

@@ -43,7 +43,7 @@
                     <div class="metric-label">Produced</div>
                     <div class="metric-number" id="sum">--</div>
                     <div class="metric-unit">kWh</div>
-                    <div class="metric-subtext">SG: <span id="energy">--</span> kWh<br>G: <span id="dtu">--</span> kWh</div>
+                    <div class="metric-subtext">SG: <span id="energy">--</span> kWh<br>G: <span id="dtu">--</span> kWh<br>MTD: <span id="mtdSum">--</span> kWh</div>
                 </td>
                 <td class="metric-cell">
                     <div class="metric-label">Autarchy</div>
@@ -61,16 +61,19 @@
                     <div class="metric-label">Consumed</div>
                     <div class="metric-number" id="consumption">--</div>
                     <div class="metric-unit">kWh</div>
+                    <div class="metric-subtext">MTD: <span id="mtdConsumption">--</span> kWh</div>
                 </td>
                 <td class="metric-cell">
                     <div class="metric-label">Own Use</div>
                     <div class="metric-number" id="ownuse">--</div>
                     <div class="metric-unit">kWh</div>
+                    <div class="metric-subtext">MTD: <span id="mtdOwnuse">--</span> kWh</div>
                 </td>
                 <td class="metric-cell">
                     <div class="metric-label">Delivered</div>
                     <div class="metric-number" id="deliver">--</div>
                     <div class="metric-unit">kWh</div>
+                    <div class="metric-subtext">MTD: <span id="mtdDeliver">--</span> kWh</div>
                 </td>
             </tr>
             </tbody>
@@ -83,7 +86,8 @@
             "Charge","Next","charged","overflow",
             "energy","dtu","sum","autarchy","grid",
             "consumption","ownuse","deliver",
-            "Heisswasser","Heizungpuffer","CompressorStatus","CompressorValue"
+            "Heisswasser","Heizungpuffer","CompressorStatus","CompressorValue",
+            "mtdSum","mtdConsumption","mtdOwnuse","mtdDeliver"
         ];
 
         function applyData(data) {
