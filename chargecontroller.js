@@ -82,7 +82,26 @@ async function run(){
 
     if(!allowed)
     {
-        store.write({ state: "did not run because not allowed", overflow: overflow,chargerOn: chargerWattage, charged: chargerData.charged },config.lastset);
+        // no commands are sent, but the current state is still reported
+        let current = await charger.getState();
+        let idleResult = {
+            chargersetting: "amp:"+current.amp+",psm:"+current.psm+",chargeStoped:"+current.frc,
+            commandStop: false,
+            woffset: 0,
+            threePhase: current.psm == 2
+        };
+        let net = overflow - chargerWattage;
+        store.write({
+            state: "did not run because not allowed",
+            export: net < 0,
+            overflow: Math.abs(net),
+            date: new Date(),
+            charger: chargerWattage,
+            chargerOn: chargerWattage,
+            charged: chargerData.charged,
+            result: idleResult
+        },config.lastset);
+        writeCharger(chargerWattage,chargerData.charged, new Date());
         return;
     }
 

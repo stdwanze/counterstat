@@ -43,6 +43,11 @@ async function getChargerConsumptionInWatts(){
     if(state == null) await queryState();
     return state.car == 2 ? state.tpa : 0;
 }
+async function getState(){
+
+    if(state == null) await queryState();
+    return state;
+}
 async function getChargerConsumptionInWattsAndWh(){
 
     if(state == null) await queryState();
@@ -104,6 +109,7 @@ module.exports = {
     init,
     getChargerConsumptionInWatts,
     getChargerConsumptionInWattsAndWh,
+    getState,
     setPower,
     setOffset,
     setThreePhaseAllowed
